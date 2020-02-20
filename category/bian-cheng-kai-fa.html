@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+        <meta charset="utf-8" />
+        <title>迷失之家 - 编程开发</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">迷失之家</a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
+                    <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
+                    <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/WebBrowser-NoIE7.html">使WebBrowser工作在非IE7模式</a></h1>
+<footer class="post-info">
+        <span>周日 13 十一月 2016</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/webbrowser.html">WebBrowser</a><a href="/tag/html5.html">HTML5</a></span>
+</footer><!-- /.post-info --><p>即使电脑上已经安装了IE11，WebBrowser控件默认也会工作在IE7的兼容模式下。</p>
+<p>有时候我们需要使用HTML5，IE7兼容模式支持程度不够。</p>
+<p>想调整使他不工作在兼容模式下，查了很久，貌似只能通过修改注册表的方式。</p>
+<blockquote>
+<p>32 bit:</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION</p>
+<p>Value Key: yourapplication.exe</p>
+<p>64 bit:</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION</p>
+<p>Value Key: yourapplication.exe</p>
+<p>The value to set this key to is (taken from MSDN here) as decimal values:</p>
+<p>9999 (0x270F)
+Internet Explorer 9. Webpages are displayed in IE9 Standards mode, regardless of the !DOCTYPE directive.</p>
+<p>9000 (0x2328)
+Internet Explorer 9. Webpages containing standards-based !DOCTYPE directives are displayed in IE9 mode.</p>
+<p>8888 (0x22B8)
+Webpages are displayed in IE8 Standards mode, regardless of the !DOCTYPE directive.</p>
+<p>8000 (0x1F40)
+Webpages containing standards-based !DOCTYPE directives are displayed in IE8 mode.</p>
+<p>7000 (0x1B58)
+Webpages containing standards-based !DOCTYPE directives are displayed in IE7 Standards mode.</p>
+</blockquote>
+<p>但是我有些介意改注册表，后来经过无数测试，发现直接在加载页面的<head>里写上：</p>
+<p>Edge模式通知IE以最高级别的可用模式显示内容</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+<p>通知IE以最高级别的可用模式显示内容，虽然浏览器标识没有改变，但是确实是以最高模式渲染的。</p>
+<p>可以用以下代码测试：</p>
+<p>html5测试代码</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;cn&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>applicationCache Test<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">applicationCache</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;Yes, your browser can use offline web applications.&quot;</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;No, your browser cannot use offline web applications.&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;UserAgent: &quot;</span><span class="p">)</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+
+
+<p>测试结果如下：</p>
+<p><img alt="avatar" src="/static/files/html5test.png"></p>                </article>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
+            </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/leoxiaofei">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
