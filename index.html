@@ -24,51 +24,40 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/IFEONpp.html">Notepad++替换系统记事本</a></h1>
+                    <h1 class="entry-title"><a href="/nextcloud-proxy.html">Nextcloud服务端使用代理服务器</a></h1>
 <footer class="post-info">
-        <span>周三 19 二月 2020</span>
-<span>| tags: <a href="/tag/c.html">C++</a></span>
-</footer><!-- /.post-info --><p><a href="https://notepad-plus-plus.org/" title="Notepad++">Notepad++</a>是在微软Windows环境下的一个免费的文本编辑器。安装完成后，默认它不会关联文件扩展名，需要在首选项里配置，另外在某些情况下（比如7-zip的编辑功能），依然会调用系统记事本。</p>
-<p>于是我编写了该小工具，帮助Notepad++完美替换系统记事本。</p>
-<p>软件特点：</p>
-<ol>
-<li>采用IFEO技术，直接关联Notepad++到系统记事本上。</li>
-<li>同时兼容新版老版Notepad++。（对于Notepad++7.5.9之前版本，通过代理方式完成文件关联）。</li>
-<li>单文件，绿色，无需安装。</li>
-<li>免费、开源。</li>
-</ol>
-<p>下载地址：</p>
-<p><a href="https://github.com/leoxiaofei/IFEONpp/releases/download/v1.0.1/IFEONpp.exe" title="IFEONpp">Github下载</a></p>
-<p><a href="https://pan.baidu.com/s/1k7ILnABfV8NZHrao8eTPdg">百度云下载</a> 提取码: gcmj</p>
-<p>源码地址：</p>
-<p><a href="https://github.com/leoxiaofei/IFEONpp.git" title="IFEONpp">Github</a></p>
-<p>使用方法：</p>
-<p>1、下载IFEONpp.exe程序，并移动到Notepad++安装目录下。（x64位默认安装目录为C:\Program Files\Notepad++)</p>
-<p>2、运行IFEONpp.exe（如果遇到UAC对话框请点运行），出现“关联成功”对话框，表示设置成功。</p>
-<p><img alt="IFEONpp" src="/static/files/IFEONpp.png"></p>
-<p>取消方法：</p>
-<p>1、再次运行IFEONpp.exe，出现“取消关联成功”对话框，表示取消成功。</p>
-<p>对于Notepad++ 7.5.9以后的版本，安装完成后，即可直接删除IFEONpp.exe程序了。</p>
-<hr>
-<p>本软件始终免费并不含广告，如果你觉得软件对你有用并愿意支持软件的发展，那就捐助我吧。</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center"><img alt="avatar" src="/static/images/alipay.png"></td>
-<td align="center"><img alt="avatar" src="/static/images/weixin.png"></td>
-</tr>
-</tbody>
-</table>                </article>
+        <span>周六 22 二月 2020</span>
+<span>| tags: <a href="/tag/nextcloud-dai-li-fu-wu-qi-pei-zhi.html">Nextcloud 代理服务器 配置</a></span>
+</footer><!-- /.post-info --><p>在中国由于大家都知道的原因，国外的很多服务都无法使用或速度极慢，Nextcloud的系统更新以及插件也因此无法使用。</p>
+<p>Nextcloud管理界面里没有关于代理服务器的设置，而对linux全局设置的代理环境变量也不起作用。</p>
+<p>最后在Nextcloud配置(config/config.sample.php)里找到了代理相关设置的说明。</p>
+<p>打开config/config.php，增加如下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="x">  &#39;proxy&#39; =&gt; &#39;172.16.0.200:1080&#39;, </span>
+<span class="x">  &#39;proxyuserpwd&#39; =&gt; &#39;user:pass&#39;</span>
+<span class="x">  &#39;trusted_proxies&#39; =&gt; array(&#39;172.16.0.200&#39;),</span>
+</code></pre></div>
+
+
+<p>保存后即时生效。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/IFEONpp.html" rel="bookmark"
+                           title="Permalink to Notepad++替换系统记事本">Notepad++替换系统记事本</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>周三 19 二月 2020</span>
+<span>| tags: <a href="/tag/c.html">C++</a></span>
+</footer><!-- /.post-info -->                <p>Notepad++替换系统记事本，采用IFEO技术，直接关联系统记事本，同时兼容新版老版Notepad++,单文件，绿色，无需安装，免费、开源。</p>
+                <a class="readmore" href="/IFEONpp.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

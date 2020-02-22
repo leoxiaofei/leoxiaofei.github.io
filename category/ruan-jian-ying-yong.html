@@ -24,35 +24,40 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/ClipX.html">ClipX</a></h1>
+                    <h1 class="entry-title"><a href="/nextcloud-proxy.html">Nextcloud服务端使用代理服务器</a></h1>
+<footer class="post-info">
+        <span>周六 22 二月 2020</span>
+<span>| tags: <a href="/tag/nextcloud-dai-li-fu-wu-qi-pei-zhi.html">Nextcloud 代理服务器 配置</a></span>
+</footer><!-- /.post-info --><p>在中国由于大家都知道的原因，国外的很多服务都无法使用或速度极慢，Nextcloud的系统更新以及插件也因此无法使用。</p>
+<p>Nextcloud管理界面里没有关于代理服务器的设置，而对linux全局设置的代理环境变量也不起作用。</p>
+<p>最后在Nextcloud配置(config/config.sample.php)里找到了代理相关设置的说明。</p>
+<p>打开config/config.php，增加如下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="x">  &#39;proxy&#39; =&gt; &#39;172.16.0.200:1080&#39;, </span>
+<span class="x">  &#39;proxyuserpwd&#39; =&gt; &#39;user:pass&#39;</span>
+<span class="x">  &#39;trusted_proxies&#39; =&gt; array(&#39;172.16.0.200&#39;),</span>
+</code></pre></div>
+
+
+<p>保存后即时生效。</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/ClipX.html" rel="bookmark"
+                           title="Permalink to ClipX">ClipX</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>周六 20 八月 2016</span>
 <span>| tags: <a href="/tag/clipx.html">ClipX</a><a href="/tag/procmon.html">Procmon</a><a href="/tag/sysinternals-suite.html">Sysinternals Suite</a><a href="/tag/pei-zhi-qing-li.html">配置清理</a></span>
-</footer><!-- /.post-info --><blockquote>
-<p>是一个超级实用的小巧剪贴板增强工具，它可以使你目前的Windows剪贴板的项目容量，从1个扩大到1024个。而且，这些项不仅仅是只能包括文字，还可以是图片。所有复制的的项都储存在一个清单上，可以通过程序在系统托盘上的图标，随时访问。</p>
-<p>官方网站：<a href="http://bluemars.org/clipx/">http://bluemars.org/clipx/</a></p>
-</blockquote>
-<p>ClipX的介绍我就不多说了。</p>
-<p>前段时间遇到一个问题：ClipX一启动，CPU占用率变飙升，并且它失去响应，无法操作。</p>
-<p>我想可能是我存储的记录太多太大了吧？（我设置了1024条记录的限制）于是我打算清理下它的配置。但因无法操作它（失去响应），我只好想别的办法：</p>
-<ol>
-<li>~~在ClipX 安装目录下寻找其数据库。（失败）~~</li>
-<li>~~用它的卸载程序卸载，重新安装它。（失败）~~</li>
-<li>~~注册表里查找ClipX并删除相关的项。（失败）~~</li>
-<li>找到C:\Users\&lt;用户名&gt;\AppData\Local\ClipX目录下，删除”clipx_&lt;用户名&gt;.ini”。（成功，他居然没用数据库，用ini配置文件保存的剪切板记录，难怪会卡）</li>
-</ol>
-<p>不耽误大家时间，问题已解决，看到这里已经可以结束了。</p>
-<p>不过可能会有朋友想知道怎么找到那个目录的。</p>
-<p>我用了个Sysinternals Suite工具包里的进程监视工具（Procmon.exe）</p>
-<p>打开后，在过滤列表里，加入一条，进程名 是 clipx.exe</p>
-<p><img alt="Procmon1" src="/static/files/Procmon1.png"></p>
-<p>确定之后，打开clipx程序。</p>
-<p>Procmon会把clipx对注册表、文件系统、网络的操作，全部捕捉下来。</p>
-<p><img alt="Procmon2" src="/static/files/Procmon2.png"></p>
-<p>于是就找到了。</p>
-<p>Procmon下载</p>
-<p>链接: <a href="https://pan.baidu.com/s/1i5lpXFf">百度云下载</a> 密码: we25</p>                </article>
-            </aside><!-- /#featured -->
+</footer><!-- /.post-info -->                <p>ClipX一启动，CPU占用率变飙升，并且它失去响应，无法操作。</p>
+                <a class="readmore" href="/ClipX.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
             </ol><!-- /#posts-list -->
             </section><!-- /#content -->
         <section id="extras" class="body">

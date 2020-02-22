@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>迷失之家 - Categories</title>
+        <title>Nextcloud服务端使用代理服务器</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -16,18 +16,38 @@
                 <nav><ul>
                     <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
-                    <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
+                    <li class="active"><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
                     <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
-    <h1>Categories on 迷失之家</h1>
-    <ul>
-        <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a> (1)</li>
-        <li><a href="/category/guan-yu.html">关于</a> (1)</li>
-        <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a> (2)</li>
-        <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a> (2)</li>
-    </ul>
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/nextcloud-proxy.html" rel="bookmark"
+           title="Permalink to Nextcloud服务端使用代理服务器">Nextcloud服务端使用代理服务器</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <span>周六 22 二月 2020</span>
+<span>| tags: <a href="/tag/nextcloud-dai-li-fu-wu-qi-pei-zhi.html">Nextcloud 代理服务器 配置</a></span>
+</footer><!-- /.post-info -->      <p>在中国由于大家都知道的原因，国外的很多服务都无法使用或速度极慢，Nextcloud的系统更新以及插件也因此无法使用。</p>
+<p>Nextcloud管理界面里没有关于代理服务器的设置，而对linux全局设置的代理环境变量也不起作用。</p>
+<p>最后在Nextcloud配置(config/config.sample.php)里找到了代理相关设置的说明。</p>
+<p>打开config/config.php，增加如下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="x">  &#39;proxy&#39; =&gt; &#39;172.16.0.200:1080&#39;, </span>
+<span class="x">  &#39;proxyuserpwd&#39; =&gt; &#39;user:pass&#39;</span>
+<span class="x">  &#39;trusted_proxies&#39; =&gt; array(&#39;172.16.0.200&#39;),</span>
+</code></pre></div>
+
+
+<p>保存后即时生效。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
