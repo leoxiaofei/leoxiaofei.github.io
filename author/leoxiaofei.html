@@ -24,25 +24,107 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/nextcloud-proxy.html">Nextcloud服务端使用代理服务器</a></h1>
+                    <h1 class="entry-title"><a href="/build-tensorflow-windows.html">windows平台编译tensorflow v2.1 GPU C++库</a></h1>
 <footer class="post-info">
-        <span>周六 22 二月 2020</span>
-<span>| tags: <a href="/tag/nextcloud.html">Nextcloud</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
-</footer><!-- /.post-info --><p>在中国由于大家都知道的原因，国外的很多服务都无法使用或速度极慢，Nextcloud的系统更新以及插件也因此无法使用。</p>
-<p>Nextcloud管理界面里没有关于代理服务器的设置，而对linux全局设置的代理环境变量也不起作用。</p>
-<p>最后在Nextcloud配置(config/config.sample.php)里找到了代理相关设置的说明。</p>
-<p>打开config/config.php，增加如下配置：</p>
-<div class="highlight"><pre><span></span><code><span class="x">  &#39;proxy&#39; =&gt; &#39;172.16.0.200:1080&#39;, </span>
-<span class="x">  &#39;proxyuserpwd&#39; =&gt; &#39;user:pass&#39;,</span>
-<span class="x">  &#39;trusted_proxies&#39; =&gt; array(&#39;172.16.0.200&#39;),</span>
+        <span>周六 07 三月 2020</span>
+<span>| tags: <a href="/tag/c-tensorflow.html">C++、tensorflow</a></span>
+</footer><!-- /.post-info --><h1>准备</h1>
+<h2>安装一下工具</h2>
+<ol>
+<li>VS2017 或以上版本</li>
+<li>Python 3.6 或以上版本</li>
+<li>bazel 0.29.1 版本（tf v2.1要求不能高于这个版本）</li>
+<li>CUDA Toolkit 10.1 和 cuDNN v7.6</li>
+<li>MSYS2</li>
+</ol>
+<h1>开始</h1>
+<h2>设置PATH环境变量</h2>
+<p>系统环境变量PATH里，添加</p>
+<p>Bazel:为Bazel.exe所在目录</p>
+<p>MSYS2:为<MSYS2安装目录>\msys64\usr\bin目录</p>
+<p>Git:为<Git安装目录>\Git\bin目录</p>
+<p>Python: python.exe所在目录</p>
+<blockquote>
+<p>默认安装git和python的环境变量会自动被设置。</p>
+<p>保证MSYS2的bash.exe路径在系统bash.exe之前。</p>
+</blockquote>
+<h3>检查环境是否设置正确</h3>
+<div class="highlight"><pre><span></span><code><span class="err">where bazel.exe</span>
+<span class="err">where bash.exe</span>
+<span class="err">where git.exe</span>
+<span class="err">where python.exe</span>
 </code></pre></div>
 
 
-<p>保存后即时生效。</p>                </article>
+<h2>安装编译所需工具</h2>
+<div class="highlight"><pre><span></span><code><span class="err">pacman -s patch unzip</span>
+</code></pre></div>
+
+
+<h2>检出tensorflow 2.1版</h2>
+<p>https://github.com/tensorflow/tensorflow.git</p>
+<h2>开始编译</h2>
+<ol>
+<li>在开始菜单里找到并打开vs2017编译命令行："x64 Native Tools Command Prompt for VS 2017"</li>
+<li>cd 到 tensorflow目录源码目录</li>
+<li>输入python configure.py，一般都用默认值，GPU版中"Do you wish to build TensorFlow with CUDA support? [y/N]:"回答y</li>
+<li>执行bazel build --config=opt --config=v2 --config=cuda --define=no_tensorflow_py_deps=true //tensorflow:tensorflow_cc.dll</li>
+<li>等待需要几个小时。</li>
+<li>编译完成后tensorflow\bazel-bin\tensorflow可以看到生成的dll，其中xxx.ifso是lib文件。</li>
+</ol>
+<h2>出错排查</h2>
+<h3>nvcc error : 'cudafe++' died with status 0xC0000005</h3>
+<p>CUDA版本不对，确定一下CUDA是否为10.1版本</p>
+<h3>fatal error C1088: Cannot flush compiler intermediate file: 'xxx' : nospace left on device</h3>
+<p>临时文件夹TEMP所在的磁盘空间不足。</p>
+<h3>error C2440: 'initializing' : cannot convert from 'initializer list' to 'xxx'</h3>
+<p>这个原因是没有使用vs2017或以上的编译器，建议使用vs2017编译命令行执行bazel。</p>
+<p>vs2015或以下，对C++14的支持有限，即使添加bazel选项：--cxxopt=/std:c++14，也没用。</p>
+<h3>error C2061: syntax error: identifier 'Kind'</h3>
+<p>打开对应的源码文件，找到对应的代码行，在xxx::Kind前加上typename</p>
+<h1>备注</h1>
+<h2>bazel默认使用用户文件夹作为编译临时目录</h2>
+<p>位置在 <windows分区>/Users/&lt;用户名&gt;/<em>bazel</em>&lt;用户名&gt;/
+请确保该分区足够大。</p>
+<h2>bazel如何使用代理服务器</h2>
+<p>添加HTTP_PROXY环境变量</p>
+<div class="highlight"><pre><span></span><code><span class="err">setx HTTP_PROXY http://127.0.0.1:1080</span>
+<span class="err">setx HTTPS_PROXY https://127.0.0.1:1080</span>
+</code></pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/virtualenvwrapper.html" rel="bookmark"
+                           title="Permalink to virtualenvwrapper的安装及使用">virtualenvwrapper的安装及使用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>周五 06 三月 2020</span>
+<span>| tags: <a href="/tag/python.html">Python</a><a href="/tag/virtualenv.html">virtualenv</a><a href="/tag/virtualenvwrapper.html">virtualenvwrapper</a></span>
+</footer><!-- /.post-info -->                <p>virtualenvwrapper的默认目录主要靠设置WORKON_HOME环境变量。</p>
+                <a class="readmore" href="/virtualenvwrapper.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/nextcloud-proxy.html" rel="bookmark"
+                           title="Permalink to Nextcloud服务端使用代理服务器">Nextcloud服务端使用代理服务器</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>周六 22 二月 2020</span>
+<span>| tags: <a href="/tag/nextcloud.html">Nextcloud</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
+</footer><!-- /.post-info -->                <p>在Nextcloud服务端使用代理服务器更新系统以及插件。打开config/config.php，增加相关配置即可。</p>
+                <a class="readmore" href="/nextcloud-proxy.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -124,7 +206,7 @@
                 <div class="blogroll">
                         <h2>blogroll</h2>
                         <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://www.leoxiaofei.com/">鄂ICP备16009745号-1</a></li>
                         </ul>
                 </div><!-- /.blogroll -->
                 <div class="social">

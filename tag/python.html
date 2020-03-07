@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+        <meta charset="utf-8" />
+        <title>迷失之家 - Python</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">迷失之家</a></h1>
+                <nav><ul>
+                    <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
+                    <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
+                    <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/virtualenvwrapper.html">virtualenvwrapper的安装及使用</a></h1>
+<footer class="post-info">
+        <span>周五 06 三月 2020</span>
+<span>| tags: <a href="/tag/python.html">Python</a><a href="/tag/virtualenv.html">virtualenv</a><a href="/tag/virtualenvwrapper.html">virtualenvwrapper</a></span>
+</footer><!-- /.post-info --><h1>安装</h1>
+<h2>Windows</h2>
+<p>1、通过pip安装virtualenv和virtualenvwrapper</p>
+<div class="highlight"><pre><span></span><code><span class="err">pip install virtualenv virtualenvwrapper-win</span>
+</code></pre></div>
+
+
+<p>2、设置建立虚拟环境所在位置的环境变量</p>
+<div class="highlight"><pre><span></span><code><span class="err">setx WORKON_HOME &lt;目录&gt;</span>
+</code></pre></div>
+
+
+<h2>Linux</h2>
+<p>1、通过pip安装virtualenv和virtualenvwrapper</p>
+<div class="highlight"><pre><span></span><code>sudo pip install virtualenv virtualenvwrapper
+</code></pre></div>
+
+
+<p>2、设置建立虚拟环境所在位置的环境变量
+打开 ~/.bashrc文件，添加：</p>
+<div class="highlight"><pre><span></span><code><span class="err">export WORKON_HOME=&#39;~/.virtualenvs&#39;</span>
+<span class="err">source /usr/local/bin/virtualenvwrapper.sh</span>
+</code></pre></div>
+
+
+<h1>常用命令</h1>
+<p>1、创建虚拟环境 </p>
+<div class="highlight"><pre><span></span><code><span class="err">mkvirtualenv test1(虚拟环境名称)</span>
+</code></pre></div>
+
+
+<p>2、查看虚拟环境建了哪些</p>
+<div class="highlight"><pre><span></span><code><span class="err">workon</span>
+</code></pre></div>
+
+
+<p>3、进入虚拟环境</p>
+<div class="highlight"><pre><span></span><code><span class="err">workon test1(虚拟环境名称)</span>
+</code></pre></div>
+
+
+<p>4、退出当前虚拟环境</p>
+<div class="highlight"><pre><span></span><code><span class="err">deactivate</span>
+</code></pre></div>
+
+
+<p>5、删除虚拟环境</p>
+<div class="highlight"><pre><span></span><code><span class="err">rmvirtualenv test1(虚拟环境名称)</span>
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
+            </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://www.leoxiaofei.com/">鄂ICP备16009745号-1</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/leoxiaofei">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
