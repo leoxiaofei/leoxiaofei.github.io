@@ -32,7 +32,7 @@
     <div class="entry-content">
 <footer class="post-info">
         <span>周六 07 三月 2020</span>
-<span>| tags: <a href="/tag/c-tensorflow.html">C++、tensorflow</a></span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/tensorflow.html">tensorflow</a></span>
 </footer><!-- /.post-info -->      <h1>准备</h1>
 <h2>安装一下工具</h2>
 <ol>
@@ -71,7 +71,7 @@
 <h2>开始编译</h2>
 <ol>
 <li>在开始菜单里找到并打开vs2017编译命令行："x64 Native Tools Command Prompt for VS 2017"</li>
-<li>cd 到 tensorflow目录源码目录</li>
+<li>cd 到 tensorflow 源码目录</li>
 <li>输入python configure.py，一般都用默认值，GPU版中"Do you wish to build TensorFlow with CUDA support? [y/N]:"回答y</li>
 <li>执行bazel build --config=opt --config=v2 --config=cuda --define=no_tensorflow_py_deps=true //tensorflow:tensorflow_cc.dll</li>
 <li>等待需要几个小时。</li>

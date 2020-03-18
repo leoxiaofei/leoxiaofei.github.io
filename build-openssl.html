@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>迷失之家 - C++</title>
+        <title>windows平台编译openssl</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
@@ -14,21 +14,26 @@
         <header id="banner" class="body">
                 <h1><a href="/">迷失之家</a></h1>
                 <nav><ul>
-                    <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
+                    <li class="active"><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
                     <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
                     <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/build-openssl.html" rel="bookmark"
+           title="Permalink to windows平台编译openssl">windows平台编译openssl</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/build-openssl.html">windows平台编译openssl</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>周三 11 三月 2020</span>
 <span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/openssl.html">openssl</a></span>
-</footer><!-- /.post-info --><p>openssl官网不再提供编译好的二进制文件，所以得自己编译。</p>
+</footer><!-- /.post-info -->      <p>openssl官网不再提供编译好的二进制文件，所以得自己编译。</p>
 <h1>准备工作</h1>
 <h2>需要安装的软件</h2>
 <ol>
@@ -66,58 +71,11 @@ https://github.com/openssl/openssl</p>
 
 <h3>出现Undefined subroutine &amp;Win32::Console::STD_OUTPUT_HANDLE</h3>
 <p>原因是缺少Win32::Console模块，我尝试用ppm install Win32-Console-ANSI安装，但是没能成功。
-最后把Perl版本换成l5.24.3得以解决。 </p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+最后把Perl版本换成l5.24.3得以解决。 </p>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/build-tensorflow-windows.html" rel="bookmark"
-                           title="Permalink to windows平台编译tensorflow v2.1 GPU C++库">windows平台编译tensorflow v2.1 GPU C++库</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>周六 07 三月 2020</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/tensorflow.html">tensorflow</a></span>
-</footer><!-- /.post-info -->                <p>windows平台编译tensorflow v2.1 GPU C++库</p>
-                <a class="readmore" href="/build-tensorflow-windows.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/IFEONpp.html" rel="bookmark"
-                           title="Permalink to Notepad++替换系统记事本">Notepad++替换系统记事本</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>周三 19 二月 2020</span>
-<span>| tags: <a href="/tag/c.html">C++</a></span>
-</footer><!-- /.post-info -->                <p>Notepad++替换系统记事本，采用IFEO技术，直接关联系统记事本，同时兼容新版老版Notepad++,单文件，绿色，无需安装，免费、开源。</p>
-                <a class="readmore" href="/IFEONpp.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/WebBrowser-NoIE7.html" rel="bookmark"
-                           title="Permalink to 使WebBrowser工作在非IE7模式">使WebBrowser工作在非IE7模式</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>周日 13 十一月 2016</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/webbrowser.html">WebBrowser</a><a href="/tag/html5.html">HTML5</a></span>
-</footer><!-- /.post-info -->                <p>使WebBrowser控件以最高级别的可用模式显示内容。</p>
-                <a class="readmore" href="/WebBrowser-NoIE7.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-            </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>

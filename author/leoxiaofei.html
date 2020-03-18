@@ -24,77 +24,68 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/build-tensorflow-windows.html">windows平台编译tensorflow v2.1 GPU C++库</a></h1>
+                    <h1 class="entry-title"><a href="/build-openssl.html">windows平台编译openssl</a></h1>
 <footer class="post-info">
-        <span>周六 07 三月 2020</span>
-<span>| tags: <a href="/tag/c-tensorflow.html">C++、tensorflow</a></span>
-</footer><!-- /.post-info --><h1>准备</h1>
-<h2>安装一下工具</h2>
+        <span>周三 11 三月 2020</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/openssl.html">openssl</a></span>
+</footer><!-- /.post-info --><p>openssl官网不再提供编译好的二进制文件，所以得自己编译。</p>
+<h1>准备工作</h1>
+<h2>需要安装的软件</h2>
 <ol>
-<li>VS2017 或以上版本</li>
-<li>Python 3.6 或以上版本</li>
-<li>bazel 0.29.1 版本（tf v2.1要求不能高于这个版本）</li>
-<li>CUDA Toolkit 10.1 和 cuDNN v7.6</li>
-<li>MSYS2</li>
+<li>
+<p><a href="https://www.activestate.com/products/perl/downloads/">ActivePerl</a> l5.24.3 (我测试了15.26、15.28，均报错）</p>
+</li>
+<li>
+<p><a href="https://www.nasm.us/">Nasm</a> （我测试的是2.14.02，其他版本应该不影响）</p>
+</li>
+<li>
+<p>VC编译器（我测试了VS2015、VS2017）</p>
+</li>
 </ol>
-<h1>开始</h1>
-<h2>设置PATH环境变量</h2>
-<p>系统环境变量PATH里，添加</p>
-<p>Bazel:为Bazel.exe所在目录</p>
-<p>MSYS2:为<MSYS2安装目录>\msys64\usr\bin目录</p>
-<p>Git:为<Git安装目录>\Git\bin目录</p>
-<p>Python: python.exe所在目录</p>
-<blockquote>
-<p>默认安装git和python的环境变量会自动被设置。</p>
-<p>保证MSYS2的bash.exe路径在系统bash.exe之前。</p>
-</blockquote>
-<h3>检查环境是否设置正确</h3>
-<div class="highlight"><pre><span></span><code><span class="err">where bazel.exe</span>
-<span class="err">where bash.exe</span>
-<span class="err">where git.exe</span>
-<span class="err">where python.exe</span>
-</code></pre></div>
-
-
-<h2>安装编译所需工具</h2>
-<div class="highlight"><pre><span></span><code><span class="err">pacman -s patch unzip</span>
-</code></pre></div>
-
-
-<h2>检出tensorflow 2.1版</h2>
-<p>https://github.com/tensorflow/tensorflow.git</p>
-<h2>开始编译</h2>
+<h2>编辑变量</h2>
+<p>PATH中加入ActivePerl和NASM</p>
+<h2>下载源码</h2>
+<p>可以在官网上下载
+https://www.openssl.org/source/</p>
+<p>也可以在github上git clone
+https://github.com/openssl/openssl</p>
+<h1>开始编译</h1>
+<h2>编译流程</h2>
 <ol>
-<li>在开始菜单里找到并打开vs2017编译命令行："x64 Native Tools Command Prompt for VS 2017"</li>
-<li>cd 到 tensorflow目录源码目录</li>
-<li>输入python configure.py，一般都用默认值，GPU版中"Do you wish to build TensorFlow with CUDA support? [y/N]:"回答y</li>
-<li>执行bazel build --config=opt --config=v2 --config=cuda --define=no_tensorflow_py_deps=true //tensorflow:tensorflow_cc.dll</li>
-<li>等待需要几个小时。</li>
-<li>编译完成后tensorflow\bazel-bin\tensorflow可以看到生成的dll，其中xxx.ifso是lib文件。</li>
+<li>在开始菜单里找到并打开vs2015编译命令行："x64 Native Tools Command Prompt for VS 2015"</li>
+<li>cd 到 openssl 源码目录</li>
+<li>Perl Configure VC-WIN64A --prefix=&lt;导出目录&gt;</li>
+<li>nmake install</li>
 </ol>
 <h2>出错排查</h2>
-<h3>nvcc error : 'cudafe++' died with status 0xC0000005</h3>
-<p>CUDA版本不对，确定一下CUDA是否为10.1版本</p>
-<h3>fatal error C1088: Cannot flush compiler intermediate file: 'xxx' : nospace left on device</h3>
-<p>临时文件夹TEMP所在的磁盘空间不足。</p>
-<h3>error C2440: 'initializing' : cannot convert from 'initializer list' to 'xxx'</h3>
-<p>这个原因是没有使用vs2017或以上的编译器，建议使用vs2017编译命令行执行bazel。</p>
-<p>vs2015或以下，对C++14的支持有限，即使添加bazel选项：--cxxopt=/std:c++14，也没用。</p>
-<h3>error C2061: syntax error: identifier 'Kind'</h3>
-<p>打开对应的源码文件，找到对应的代码行，在xxx::Kind前加上typename</p>
-<h1>备注</h1>
-<h2>bazel默认使用用户文件夹作为编译临时目录</h2>
-<p>位置在 <windows分区>/Users/&lt;用户名&gt;/<em>bazel</em>&lt;用户名&gt;/
-请确保该分区足够大。</p>
-<h2>bazel如何使用代理服务器</h2>
-<p>添加HTTP_PROXY环境变量</p>
-<div class="highlight"><pre><span></span><code><span class="err">setx HTTP_PROXY http://127.0.0.1:1080</span>
-<span class="err">setx HTTPS_PROXY https://127.0.0.1:1080</span>
-</code></pre></div>                </article>
+<h3>出现'rc' is not recognized as an internal or external command,</h3>
+<p>在磁盘上搜索rc.exe，把rc.exe所在目录加入PATH，如：</p>
+<div class="highlight"><pre><span></span><code><span class="err">set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x64;%PATH%</span>
+</code></pre></div>
+
+
+<h3>出现Undefined subroutine &amp;Win32::Console::STD_OUTPUT_HANDLE</h3>
+<p>原因是缺少Win32::Console模块，我尝试用ppm install Win32-Console-ANSI安装，但是没能成功。
+最后把Perl版本换成l5.24.3得以解决。 </p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/build-tensorflow-windows.html" rel="bookmark"
+                           title="Permalink to windows平台编译tensorflow v2.1 GPU C++库">windows平台编译tensorflow v2.1 GPU C++库</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>周六 07 三月 2020</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/tensorflow.html">tensorflow</a></span>
+</footer><!-- /.post-info -->                <p>windows平台编译tensorflow v2.1 GPU C++库</p>
+                <a class="readmore" href="/build-tensorflow-windows.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
