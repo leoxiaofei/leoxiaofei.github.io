@@ -5,14 +5,20 @@
         <title>迷失之家 - C++</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + "179fe8188dbc2a06d9a1807e610735d5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">迷失之家</a></h1>
+                <h1><a href="/">迷失之家 </a></h1>
                 <nav><ul>
                     <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
@@ -24,53 +30,82 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/build-openssl.html">windows平台编译openssl</a></h1>
+                    <h1 class="entry-title"><a href="/EnvMgr.html">迷失的环境变量管理器</a></h1>
 <footer class="post-info">
-        <span>周三 11 三月 2020</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/openssl.html">openssl</a></span>
-</footer><!-- /.post-info --><p>openssl官网不再提供编译好的二进制文件，所以得自己编译。</p>
-<h1>准备工作</h1>
-<h2>需要安装的软件</h2>
+        <span>2020-07-26 14:33:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a></span>
+</footer><!-- /.post-info --><h1>迷失的环境变量管理器</h1>
+<p>一般情况下Windows系统环境变量可以用过两种方式设置：</p>
 <ol>
-<li>
-<p><a href="https://www.activestate.com/products/perl/downloads/">ActivePerl</a> l5.24.3 (我测试了15.26、15.28，均报错）</p>
-</li>
-<li>
-<p><a href="https://www.nasm.us/">Nasm</a> （我测试的是2.14.02，其他版本应该不影响）</p>
-</li>
-<li>
-<p>VC编译器（我测试了VS2015、VS2017）</p>
-</li>
+<li>可以通过图形界面设置，在运行里输入以下代码：</li>
 </ol>
-<h2>编辑变量</h2>
-<p>PATH中加入ActivePerl和NASM</p>
-<h2>下载源码</h2>
-<p>可以在官网上下载
-https://www.openssl.org/source/</p>
-<p>也可以在github上git clone
-https://github.com/openssl/openssl</p>
-<h1>开始编译</h1>
-<h2>编译流程</h2>
-<ol>
-<li>在开始菜单里找到并打开vs2015编译命令行："x64 Native Tools Command Prompt for VS 2015"</li>
-<li>cd 到 openssl 源码目录</li>
-<li>Perl Configure VC-WIN64A --prefix=&lt;导出目录&gt;</li>
-<li>nmake install</li>
-</ol>
-<h2>出错排查</h2>
-<h3>出现'rc' is not recognized as an internal or external command,</h3>
-<p>在磁盘上搜索rc.exe，把rc.exe所在目录加入PATH，如：</p>
-<div class="highlight"><pre><span></span><code><span class="err">set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x64;%PATH%</span>
+<div class="highlight"><pre><span></span><code><span class="err">rundll32.exe sysdm.cpl,EditEnvironmentVariables</span>
 </code></pre></div>
 
 
-<h3>出现Undefined subroutine &amp;Win32::Console::STD_OUTPUT_HANDLE</h3>
-<p>原因是缺少Win32::Console模块，我尝试用ppm install Win32-Console-ANSI安装，但是没能成功。
-最后把Perl版本换成l5.24.3得以解决。 </p>                </article>
+<ol>
+<li>也可以通过命令设置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="err">setx NAME &quot;xxx&quot;</span>
+</code></pre></div>
+
+
+<p>不过无论哪种方式，都感觉操作不变：1、没有直接提供备份还原功能。2、打开设置需要很多步操作等。</p>
+<p>于是我编写了迷失的环境变量管理器，方便设置系统环境变量。</p>
+<h2>软件特点：</h2>
+<ol>
+<li>采用C++ WTL开发，体积小（1M左右），不依赖非系统DLL，单文件，绿色，无需安装。</li>
+<li>无需管理员权限（修改系统变量除外）。</li>
+<li>一键追加路径到Path里，拖动修改Path里的顺序。</li>
+<li>支持环境变量导入导出备份。</li>
+</ol>
+<h2>软件界面：</h2>
+<p><img alt="EnvMgrUI" src="/static/files/envmgr_ui.png"></p>
+<h2>下载地址：</h2>
+<p><a href="https://pan.baidu.com/s/1ouIB3Orq93-wHwXKkrsVJA">百度云下载</a> 提取码: sapq</p>
+<h2>使用方法：</h2>
+<ol>
+<li>下载EnvMgr.zip并解压程序到任意目录，运行EnvMgr.exe即可。</li>
+</ol>
+<h2>卸载方法：</h2>
+<ol>
+<li>直接删除EnvMgr.exe即可。</li>
+</ol>
+<hr>
+<p>本软件始终免费并不含广告，如果你觉得软件对你有用并愿意支持软件的发展，那就捐助我吧。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img alt="avatar" src="/static/images/alipay.png"></td>
+<td align="center"><img alt="avatar" src="/static/images/weixin.png"></td>
+</tr>
+</tbody>
+</table>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/build-openssl.html" rel="bookmark"
+                           title="Permalink to windows平台编译openssl">windows平台编译openssl</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-03-11 15:32:16</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/openssl.html">openssl</a></span>
+</footer><!-- /.post-info -->                <p>windows平台编译openssl 1.1.1d 库</p>
+                <a class="readmore" href="/build-openssl.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -80,7 +115,7 @@ https://github.com/openssl/openssl</p>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>周六 07 三月 2020</span>
+        <span>2020-03-07 14:22:07</span>
 <span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/tensorflow.html">tensorflow</a></span>
 </footer><!-- /.post-info -->                <p>windows平台编译tensorflow v2.1 GPU C++库</p>
                 <a class="readmore" href="/build-tensorflow-windows.html">read more</a>
@@ -95,7 +130,7 @@ https://github.com/openssl/openssl</p>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>周三 19 二月 2020</span>
+        <span>2020-02-19 23:11:07</span>
 <span>| tags: <a href="/tag/c.html">C++</a></span>
 </footer><!-- /.post-info -->                <p>Notepad++替换系统记事本，采用IFEO技术，直接关联系统记事本，同时兼容新版老版Notepad++,单文件，绿色，无需安装，免费、开源。</p>
                 <a class="readmore" href="/IFEONpp.html">read more</a>
@@ -110,7 +145,7 @@ https://github.com/openssl/openssl</p>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <span>周日 13 十一月 2016</span>
+        <span>2016-11-13 22:54:00</span>
 <span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/webbrowser.html">WebBrowser</a><a href="/tag/html5.html">HTML5</a></span>
 </footer><!-- /.post-info -->                <p>使WebBrowser控件以最高级别的可用模式显示内容。</p>
                 <a class="readmore" href="/WebBrowser-NoIE7.html">read more</a>
@@ -137,6 +172,7 @@ https://github.com/openssl/openssl</p>
         <footer id="contentinfo" class="body">
                 <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
         </footer><!-- /#contentinfo -->
+
 
 </body>
 </html>
