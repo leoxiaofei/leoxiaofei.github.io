@@ -30,67 +30,101 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/EnvMgr.html">迷失的环境变量管理器</a></h1>
+                    <h1 class="entry-title"><a href="/vs-tips.html">VS使用技巧</a></h1>
 <footer class="post-info">
-        <span>2020-07-26 14:33:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a></span>
-</footer><!-- /.post-info --><h1>迷失的环境变量管理器</h1>
-<p>一般情况下Windows系统环境变量可以用过两种方式设置：</p>
-<ol>
-<li>可以通过图形界面设置，在运行里输入以下代码：</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="err">rundll32.exe sysdm.cpl,EditEnvironmentVariables</span>
+        <span>2020-08-01 00:09:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/vs.html">VS</a><a href="/tag/visual-studio.html">Visual Studio</a></span>
+</footer><!-- /.post-info --><h1>调试</h1>
+<h2>在窗口程序工程中开启控制台窗口打印输出</h2>
+<p>无需修改代码，VS中设置即可。
+在Project -&gt; Properties -&gt; Build Events -&gt; Post-Build Event
+Command Line里添加</p>
+<div class="highlight"><pre><span></span><code><span class="err">editbin /SUBSYSTEM:CONSOLE $(OUTDIR)\$(TargetName).exe</span>
 </code></pre></div>
 
 
-<ol>
-<li>也可以通过命令设置：</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="err">setx NAME &quot;xxx&quot;</span>
-</code></pre></div>
-
-
-<p>不过无论哪种方式，都感觉操作不便：1、没有直接提供备份还原功能。2、打开设置需要很多步操作等。</p>
-<p>于是我编写了迷失的环境变量管理器，方便设置系统环境变量。</p>
-<h2>软件特点：</h2>
-<ol>
-<li>采用C++ WTL开发，体积小（1M左右），不依赖非系统DLL，单文件，绿色，无需安装。</li>
-<li>无需管理员权限（修改系统变量除外）。</li>
-<li>一键追加路径到Path里，拖动修改Path里的顺序。</li>
-<li>支持环境变量导入导出备份。</li>
-</ol>
-<h2>软件界面：</h2>
-<p><img alt="EnvMgrUI" src="/static/files/envmgr_ui.png"></p>
-<h2>下载地址：</h2>
-<p><a href="https://pan.baidu.com/s/1ouIB3Orq93-wHwXKkrsVJA">百度云下载</a> 提取码: sapq</p>
-<h2>使用方法：</h2>
-<ol>
-<li>下载EnvMgr.zip并解压程序到任意目录，运行EnvMgr.exe即可。</li>
-</ol>
-<h2>卸载方法：</h2>
-<ol>
-<li>直接删除EnvMgr.exe即可。</li>
-</ol>
-<hr>
-<p>本软件始终免费并不含广告，如果你觉得软件对你有用并愿意支持软件的发展，那就捐助我吧。</p>
+<h2>监视技巧</h2>
+<p>Watch窗口中，在变量后面添加以下后缀，获得详细信息：</p>
 <table>
 <thead>
 <tr>
-<th align="center"></th>
-<th align="center"></th>
+<th>添加</th>
+<th>说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><img alt="avatar" src="/static/images/alipay.png"></td>
-<td align="center"><img alt="avatar" src="/static/images/weixin.png"></td>
+<td>,数字</td>
+<td>将变量拆分为数组显示</td>
+</tr>
+<tr>
+<td>,s8</td>
+<td>显示utf-8字符串</td>
+</tr>
+<tr>
+<td>,x</td>
+<td>16进制查看</td>
+</tr>
+<tr>
+<td>,hr</td>
+<td>查看Windows HRESULT解释</td>
+</tr>
+<tr>
+<td>,wm</td>
+<td>Windows消息,例如0x0010, 显示 WM_CLOSE</td>
 </tr>
 </tbody>
-</table>                </article>
+</table>
+<h1>开发</h1>
+<h2>VS自带快捷键</h2>
+<ol>
+<li>上下两行交换顺序：“Alt + Shift + T”；“Alt + ↑/↓(方向键)”</li>
+<li>交换函数两个参数或等号两边的值的顺序：“Ctrl + Shift + T”</li>
+<li>单词选中、光标移动、单词删除：“Ctrl + 功能键(如Backspace、左右键等)”</li>
+<li>自动排版：选中所要排版的文字，“Alt + F8”。</li>
+<li>竖形选择：按住“Alt”，可同时选中多行代码的第一个或多个字符，进行修改或者删减 操作。</li>
+</ol>
+<h2>VAssistX</h2>
+<h3>VA_X快捷键</h3>
+<ol>
+<li>注释：选中你要注释的代码，单击“/”，“Shift + 8”</li>
+<li>cpp和h文件切换：“Alt + O”，除后缀名之外文件名必须一致，文件可以不在同一个目录。</li>
+<li>函数的定义和实现跳转：“Alt + G”，也可以用来跳转头文件。</li>
+<li>打开当前上下文菜单快捷键：“Shift + Alt + Q”，此菜单根据当前光标位置不同，产生的菜单也不同。</li>
+</ol>
+<h3>常用操作</h3>
+<ol>
+<li>批量改名：Rename（快捷键Shift+Alt+R），可以修改变量名、函数名、类名。</li>
+<li>查找引用：Find References（快捷键Shift+Alt+F），可以查找变量名，函数名，类名的引用地方。</li>
+<li>通过声明创建实现：在该函数声明上打开插件菜单，选择Create Implementation</li>
+<li>通过实现创建声明：在该函数实现上打开插件菜单，选择Create Declaration</li>
+<li>批量创建实现：在类名上打开插件菜单：选择Create Method Implementations。</li>
+<li>批量修改函数符号(函数名、返回值、参数)，在函数上打开插件菜单，选择Change Signature</li>
+<li>排序选中的行：这个功能用来排序头文件挺不错的。先选中所要排序的行，然后在菜单栏上选择VAssistX-&gt;Tools-&gt;Sort Selected Lines</li>
+<li>添加头文件预编译防火墙：在代码区单击鼠标右键，菜单中选中Surround With-&gt;#ifdef guard in a head</li>
+<li>重写父类方法：在继承的父类上打开插件菜单，选择Implement Virtual Methods...</li>
+<li>添加头文件。在类、变量、方法上打开插件菜单，选择Add include “xxx”。</li>
+<li>和Doxygen结合使用。</li>
+</ol>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/EnvMgr.html" rel="bookmark"
+                           title="Permalink to 迷失的环境变量管理器">迷失的环境变量管理器</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-07-26 14:33:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a></span>
+</footer><!-- /.post-info -->                <p>迷失的环境变量管理器，免费，绿色，单文件，无需安装。</p>
+                <a class="readmore" href="/EnvMgr.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
