@@ -30,22 +30,33 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/nextcloud-proxy.html">Nextcloud服务端使用代理服务器</a></h1>
+                    <h1 class="entry-title"><a href="/jenkins-proxy.html">Jenkins服务使用代理服务器</a></h1>
+<footer class="post-info">
+        <span>2020-08-01 21:50:09</span>
+<span>| tags: <a href="/tag/jenkins.html">Jenkins</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
+</footer><!-- /.post-info --><p>Jenkins的系统更新及插件安装无法使用，需要使用代理服务器完成更新：</p>
+<p>找到Manage Jenkins（系统管理）=》Plugin Manager（插件管理）
+点击Advanced（高级）选项卡，在HTTP Proxy Configuration（代理设置）里设置，保存后即时生效。</p>
+<p>注意，这里为全局代理，除了影响系统更新和插件安装以外，还包含自动构建项目的git pull操作。</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/nextcloud-proxy.html" rel="bookmark"
+                           title="Permalink to Nextcloud服务端使用代理服务器">Nextcloud服务端使用代理服务器</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <span>2020-02-22 20:12:09</span>
 <span>| tags: <a href="/tag/nextcloud.html">Nextcloud</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
-</footer><!-- /.post-info --><p>在中国由于大家都知道的原因，国外的很多服务都无法使用或速度极慢，Nextcloud的系统更新以及插件也因此无法使用。</p>
-<p>Nextcloud管理界面里没有关于代理服务器的设置，而对linux全局设置的代理环境变量也不起作用。</p>
-<p>最后在Nextcloud配置(config/config.sample.php)里找到了代理相关设置的说明。</p>
-<p>打开config/config.php，增加如下配置：</p>
-<div class="highlight"><pre><span></span><code><span class="x">  &#39;proxy&#39; =&gt; &#39;172.16.0.200:1080&#39;, </span>
-<span class="x">  &#39;proxyuserpwd&#39; =&gt; &#39;user:pass&#39;,</span>
-<span class="x">  &#39;trusted_proxies&#39; =&gt; array(&#39;172.16.0.200&#39;),</span>
-</code></pre></div>
-
-
-<p>保存后即时生效。</p>                </article>
-            </aside><!-- /#featured -->
+</footer><!-- /.post-info -->                <p>在Nextcloud服务端使用代理服务器更新系统以及插件。打开config/config.php，增加相关配置即可。</p>
+                <a class="readmore" href="/nextcloud-proxy.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
             </ol><!-- /#posts-list -->
             </section><!-- /#content -->
         <section id="extras" class="body">

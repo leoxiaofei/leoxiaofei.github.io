@@ -30,86 +30,33 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/vs-tips.html">VS使用技巧</a></h1>
+                    <h1 class="entry-title"><a href="/jenkins-proxy.html">Jenkins服务使用代理服务器</a></h1>
 <footer class="post-info">
-        <span>2020-08-01 00:09:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/vs.html">VS</a><a href="/tag/visual-studio.html">Visual Studio</a></span>
-</footer><!-- /.post-info --><h1>调试</h1>
-<h2>在窗口程序工程中开启控制台窗口打印输出</h2>
-<p>无需修改代码，VS中设置即可。
-在Project -&gt; Properties -&gt; Build Events -&gt; Post-Build Event
-Command Line里添加</p>
-<div class="highlight"><pre><span></span><code><span class="err">editbin /SUBSYSTEM:CONSOLE $(OUTDIR)\$(TargetName).exe</span>
-</code></pre></div>
-
-
-<h2>监视技巧</h2>
-<p>Watch窗口中，在变量后面添加以下后缀，获得详细信息：</p>
-<table>
-<thead>
-<tr>
-<th>添加</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>,数字</td>
-<td>将变量拆分为数组显示</td>
-</tr>
-<tr>
-<td>,s8</td>
-<td>显示utf-8字符串</td>
-</tr>
-<tr>
-<td>,x</td>
-<td>16进制查看</td>
-</tr>
-<tr>
-<td>,hr</td>
-<td>查看Windows HRESULT解释</td>
-</tr>
-<tr>
-<td>,wm</td>
-<td>Windows消息,例如0x0010, 显示 WM_CLOSE</td>
-</tr>
-</tbody>
-</table>
-<h1>开发</h1>
-<h2>VS自带快捷键</h2>
-<ol>
-<li>上下两行交换顺序：“Alt + Shift + T”；“Alt + ↑/↓(方向键)”</li>
-<li>交换函数两个参数或等号两边的值的顺序：“Ctrl + Shift + T”</li>
-<li>单词选中、光标移动、单词删除：“Ctrl + 功能键(如Backspace、左右键等)”</li>
-<li>自动排版：选中所要排版的文字，“Alt + F8”。</li>
-<li>竖形选择：按住“Alt”，可同时选中多行代码的第一个或多个字符，进行修改或者删减 操作。</li>
-</ol>
-<h2>VAssistX</h2>
-<h3>VA_X快捷键</h3>
-<ol>
-<li>注释：选中你要注释的代码，单击“/”，“Shift + 8”</li>
-<li>cpp和h文件切换：“Alt + O”，除后缀名之外文件名必须一致，文件可以不在同一个目录。</li>
-<li>函数的定义和实现跳转：“Alt + G”，也可以用来跳转头文件。</li>
-<li>打开当前上下文菜单快捷键：“Shift + Alt + Q”，此菜单根据当前光标位置不同，产生的菜单也不同。</li>
-</ol>
-<h3>常用操作</h3>
-<ol>
-<li>批量改名：Rename（快捷键Shift+Alt+R），可以修改变量名、函数名、类名。</li>
-<li>查找引用：Find References（快捷键Shift+Alt+F），可以查找变量名，函数名，类名的引用地方。</li>
-<li>通过声明创建实现：在该函数声明上打开插件菜单，选择Create Implementation</li>
-<li>通过实现创建声明：在该函数实现上打开插件菜单，选择Create Declaration</li>
-<li>批量创建实现：在类名上打开插件菜单：选择Create Method Implementations。</li>
-<li>批量修改函数符号(函数名、返回值、参数)，在函数上打开插件菜单，选择Change Signature</li>
-<li>排序选中的行：这个功能用来排序头文件挺不错的。先选中所要排序的行，然后在菜单栏上选择VAssistX-&gt;Tools-&gt;Sort Selected Lines</li>
-<li>添加头文件预编译防火墙：在代码区单击鼠标右键，菜单中选中Surround With-&gt;#ifdef guard in a head</li>
-<li>重写父类方法：在继承的父类上打开插件菜单，选择Implement Virtual Methods...</li>
-<li>添加头文件。在类、变量、方法上打开插件菜单，选择Add include “xxx”。</li>
-<li>和Doxygen结合使用。</li>
-</ol>                </article>
+        <span>2020-08-01 21:50:09</span>
+<span>| tags: <a href="/tag/jenkins.html">Jenkins</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
+</footer><!-- /.post-info --><p>Jenkins的系统更新及插件安装无法使用，需要使用代理服务器完成更新：</p>
+<p>找到Manage Jenkins（系统管理）=》Plugin Manager（插件管理）
+点击Advanced（高级）选项卡，在HTTP Proxy Configuration（代理设置）里设置，保存后即时生效。</p>
+<p>注意，这里为全局代理，除了影响系统更新和插件安装以外，还包含自动构建项目的git pull操作。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/vs-tips.html" rel="bookmark"
+                           title="Permalink to VS使用技巧">VS使用技巧</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-08-01 00:09:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/vs.html">VS</a><a href="/tag/visual-studio.html">Visual Studio</a></span>
+</footer><!-- /.post-info -->                <p>vs 使用小技巧</p>
+                <a class="readmore" href="/vs-tips.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

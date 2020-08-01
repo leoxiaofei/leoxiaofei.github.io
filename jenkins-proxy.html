@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>迷失之家 - 配置</title>
+        <title>Jenkins服务使用代理服务器</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
 <script>
@@ -22,43 +22,31 @@ var _hmt = _hmt || [];
                 <nav><ul>
                     <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
-                    <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
+                    <li class="active"><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
                     <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/jenkins-proxy.html" rel="bookmark"
+           title="Permalink to Jenkins服务使用代理服务器">Jenkins服务使用代理服务器</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/jenkins-proxy.html">Jenkins服务使用代理服务器</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>2020-08-01 21:50:09</span>
 <span>| tags: <a href="/tag/jenkins.html">Jenkins</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
-</footer><!-- /.post-info --><p>Jenkins的系统更新及插件安装无法使用，需要使用代理服务器完成更新：</p>
+</footer><!-- /.post-info -->      <p>Jenkins的系统更新及插件安装无法使用，需要使用代理服务器完成更新：</p>
 <p>找到Manage Jenkins（系统管理）=》Plugin Manager（插件管理）
 点击Advanced（高级）选项卡，在HTTP Proxy Configuration（代理设置）里设置，保存后即时生效。</p>
-<p>注意，这里为全局代理，除了影响系统更新和插件安装以外，还包含自动构建项目的git pull操作。</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<p>注意，这里为全局代理，除了影响系统更新和插件安装以外，还包含自动构建项目的git pull操作。</p>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/nextcloud-proxy.html" rel="bookmark"
-                           title="Permalink to Nextcloud服务端使用代理服务器">Nextcloud服务端使用代理服务器</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>2020-02-22 20:12:09</span>
-<span>| tags: <a href="/tag/nextcloud.html">Nextcloud</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
-</footer><!-- /.post-info -->                <p>在Nextcloud服务端使用代理服务器更新系统以及插件。打开config/config.php，增加相关配置即可。</p>
-                <a class="readmore" href="/nextcloud-proxy.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-            </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
