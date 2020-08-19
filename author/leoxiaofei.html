@@ -30,18 +30,54 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/jenkins-proxy.html">Jenkins服务使用代理服务器</a></h1>
+                    <h1 class="entry-title"><a href="/qt-modules.html">在代码内判断Qt模块启用</a></h1>
 <footer class="post-info">
-        <span>2020-08-01 21:50:09</span>
-<span>| tags: <a href="/tag/jenkins.html">Jenkins</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
-</footer><!-- /.post-info --><p>Jenkins的系统更新及插件安装无法使用，需要使用代理服务器完成更新：</p>
-<p>找到Manage Jenkins（系统管理）=》Plugin Manager（插件管理）
-点击Advanced（高级）选项卡，在HTTP Proxy Configuration（代理设置）里设置，保存后即时生效。</p>
-<p>注意，这里为全局代理，除了影响系统更新和插件安装以外，还包含自动构建项目的git pull操作。</p>                </article>
+        <span>2020-08-19 16:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a></span>
+</footer><!-- /.post-info --><h1>在代码内判断Qt模块是否启用</h1>
+<p>qmake时，增加QT += core时，其实qmake帮我们做了下面三件事：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>增加</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头文件搜索路径</td>
+<td>$QTDIR/include/QtCore</td>
+</tr>
+<tr>
+<td>链接库</td>
+<td>QtCore4.lib</td>
+</tr>
+<tr>
+<td>编译预处理宏</td>
+<td>QT_CORE_LIB</td>
+</tr>
+</tbody>
+</table>
+<p>剩下的就不用说了，你们懂的。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/jenkins-proxy.html" rel="bookmark"
+                           title="Permalink to Jenkins服务使用代理服务器">Jenkins服务使用代理服务器</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-08-01 21:50:09</span>
+<span>| tags: <a href="/tag/jenkins.html">Jenkins</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
+</footer><!-- /.post-info -->                <p>在Jenkins服务使用代理服务器更新系统以及插件。在Manage Jenkins（系统管理）=》Plugin Manager（插件管理）=》Advanced（高级）里。</p>
+                <a class="readmore" href="/jenkins-proxy.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

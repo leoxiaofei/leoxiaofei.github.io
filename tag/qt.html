@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>迷失之家 - Tags</title>
+        <title>迷失之家 - Qt</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
 <script>
@@ -28,29 +28,40 @@ var _hmt = _hmt || [];
                 </nav>
         </header><!-- /#banner -->
 
-<section id="content" class="body">
-    <h1>Tags for 迷失之家</h1>        <li><a href="/tag/autohotkey.html">Autohotkey</a> (1)</li>
-        <li><a href="/tag/c.html">C++</a> (7)</li>
-        <li><a href="/tag/clipx.html">ClipX</a> (1)</li>
-        <li><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a> (2)</li>
-        <li><a href="/tag/html5.html">HTML5</a> (1)</li>
-        <li><a href="/tag/jenkins.html">Jenkins</a> (1)</li>
-        <li><a href="/tag/nextcloud.html">Nextcloud</a> (1)</li>
-        <li><a href="/tag/openssl.html">openssl</a> (1)</li>
-        <li><a href="/tag/pei-zhi.html">配置</a> (2)</li>
-        <li><a href="/tag/pei-zhi-qing-li.html">配置清理</a> (1)</li>
-        <li><a href="/tag/procmon.html">Procmon</a> (1)</li>
-        <li><a href="/tag/python.html">Python</a> (1)</li>
-        <li><a href="/tag/qt.html">Qt</a> (1)</li>
-        <li><a href="/tag/sysinternals-suite.html">Sysinternals Suite</a> (1)</li>
-        <li><a href="/tag/tensorflow.html">tensorflow</a> (1)</li>
-        <li><a href="/tag/virtualenv.html">virtualenv</a> (1)</li>
-        <li><a href="/tag/virtualenvwrapper.html">virtualenvwrapper</a> (1)</li>
-        <li><a href="/tag/visual-studio.html">Visual Studio</a> (1)</li>
-        <li><a href="/tag/vs.html">VS</a> (1)</li>
-        <li><a href="/tag/webbrowser.html">WebBrowser</a> (1)</li>
-</section>
-
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/qt-modules.html">在代码内判断Qt模块启用</a></h1>
+<footer class="post-info">
+        <span>2020-08-19 16:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a></span>
+</footer><!-- /.post-info --><h1>在代码内判断Qt模块是否启用</h1>
+<p>qmake时，增加QT += core时，其实qmake帮我们做了下面三件事：</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>增加</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头文件搜索路径</td>
+<td>$QTDIR/include/QtCore</td>
+</tr>
+<tr>
+<td>链接库</td>
+<td>QtCore4.lib</td>
+</tr>
+<tr>
+<td>编译预处理宏</td>
+<td>QT_CORE_LIB</td>
+</tr>
+</tbody>
+</table>
+<p>剩下的就不用说了，你们懂的。</p>                </article>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
+            </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
