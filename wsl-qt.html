@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>迷失之家 - Qt</title>
+        <title>WSL系统上运行Qt遇到的坑</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
 <script>
@@ -20,21 +20,26 @@ var _hmt = _hmt || [];
         <header id="banner" class="body">
                 <h1><a href="/">迷失之家 </a></h1>
                 <nav><ul>
-                    <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
+                    <li class="active"><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
                     <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
                     <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
                 </ul>
                 </nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/wsl-qt.html" rel="bookmark"
+           title="Permalink to WSL系统上运行Qt遇到的坑">WSL系统上运行Qt遇到的坑</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/wsl-qt.html">WSL系统上运行Qt遇到的坑</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <span>2020-09-10 16:19:00</span>
 <span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/wsl.html">WSL</a></span>
-</footer><!-- /.post-info --><p>今天用WSL编译Qt5的程序，编译成功，但是无法运行，提示：</p>
+</footer><!-- /.post-info -->      <p>今天用WSL编译Qt5的程序，编译成功，但是无法运行，提示：</p>
 <div class="highlight"><pre><span></span><code><span class="err">libQt5Core.so.5: cannot open shared object file: No such file or directory</span>
 </code></pre></div>
 
@@ -56,43 +61,11 @@ var _hmt = _hmt || [];
 
 
 <p>来源：
-<a href="https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed">https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed</a></p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <ol id="posts-list" class="hfeed">
+<a href="https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed">https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed</a></p>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/cmake-qt.html" rel="bookmark"
-                           title="Permalink to VSCode CMake Qt配置">VSCode CMake Qt配置</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>2020-09-10 15:19:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
-</footer><!-- /.post-info -->                <p>VSCode CMake Qt配置</p>
-                <a class="readmore" href="/cmake-qt.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/qt-modules.html" rel="bookmark"
-                           title="Permalink to 在代码内判断Qt模块启用">在代码内判断Qt模块启用</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <span>2020-08-19 16:19:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a></span>
-</footer><!-- /.post-info -->                <p>在代码内判断Qt模块是否启用。</p>
-                <a class="readmore" href="/qt-modules.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-            </ol><!-- /#posts-list -->
-            </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>blogroll</h2>
