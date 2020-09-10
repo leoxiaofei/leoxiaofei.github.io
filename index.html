@@ -30,39 +30,100 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/qt-modules.html">在代码内判断Qt模块启用</a></h1>
+                    <h1 class="entry-title"><a href="/cmake-qt.html">VSCode CMake Qt配置</a></h1>
 <footer class="post-info">
-        <span>2020-08-19 16:19:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a></span>
-</footer><!-- /.post-info --><h1>在代码内判断Qt模块是否启用</h1>
-<p>qmake添加QT += core，其实qmake帮我们做了下面三件事：</p>
-<table>
-<thead>
-<tr>
-<th>位置</th>
-<th>增加</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>头文件搜索路径</td>
-<td>$QTDIR/include/QtCore</td>
-</tr>
-<tr>
-<td>链接库</td>
-<td>QtCore4.lib</td>
-</tr>
-<tr>
-<td>编译预处理宏</td>
-<td>QT_CORE_LIB</td>
-</tr>
-</tbody>
-</table>
-<p>剩下的就不用说了，你们懂的。</p>                </article>
+        <span>2020-09-10 15:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info --><h1>CMake Qt配置</h1>
+<h2>CMakeLists.txt示例：</h2>
+<div class="highlight"><pre><span></span><code><span class="c">#设置cmake版本号</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0.0</span><span class="p">)</span>
+
+<span class="c">#设置自动生成moc文件，一定要设置</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_AUTOMOC</span> <span class="s">ON</span><span class="p">)</span> 
+
+<span class="c">#查找需要的Qt库文件，最好每一个库都要写，Qt也会根据依赖关系自动添加</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Widgets</span><span class="p">)</span>  
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Core</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Gui</span><span class="p">)</span>
+
+<span class="c">#查找当前文件夹中的所有源代码文件，也可以通过Set命令将所有文件设置为一个变量</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">SRC_FILES</span> <span class="s2">&quot;./*.cxx&quot;</span><span class="p">)</span> 
+<span class="c">#同理，查找当前文件夹中所有的头文件</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">HEAD_FILES</span> <span class="s2">&quot;./*.h&quot;</span><span class="p">)</span> 
+<span class="c">#同理，查找当前文件夹中所有的ui文件</span>
+<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">UI_FILES</span> <span class="s2">&quot;./*.ui&quot;</span><span class="p">)</span> 
+
+<span class="c">#通过Ui文件生成对应的头文件，一定要添加</span>
+<span class="nb">qt5_wrap_ui</span><span class="p">(</span><span class="s">WRAP_FILES</span> <span class="o">${</span><span class="nv">UI_FILES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c">#添加资源文件</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">RCC_FILES</span> <span class="s">rcc.qrc</span><span class="p">)</span>
+
+<span class="c">#将ui文件和生成文件整理在一个文件夹中，非必须</span>
+<span class="nb">source_group</span><span class="p">(</span><span class="s2">&quot;Ui&quot;</span> <span class="s">FILES</span> <span class="o">${</span><span class="nv">UI_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">WRAP_FILES</span><span class="o">}</span> <span class="p">)</span>
+
+<span class="c">#创建工程文件</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">HEAD_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">RCC_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">WRAP_FILES</span><span class="o">}</span><span class="p">)</span>
+
+<span class="c">#添加Qt5依赖项</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">Qt5::Widgets</span> <span class="s">Qt5::Core</span> <span class="s">Qt5::Gui</span><span class="p">)</span>
+</code></pre></div>
+
+
+<h2>Qt版本选择</h2>
+<p>之前一直不理解，电脑上装了多个Qt版本，CMake怎么知道在哪找，找哪一个。</p>
+<p>通过CMake生成Qt工程时的打印信息得知，只要在调用CMake命令之前，预先设置环境变量：</p>
+<p>CMAKE_PREFIX_PATH: "X:\Qt\5.12.6\msvc2015_64\lib\cmake"</p>
+<p>指定CMake所要使用的Qt版本，即可。</p>
+<p>对于VSCode，可以在Settings中，找到cmake.configureEnvironment进行设置：</p>
+<p><img alt="CMake_QtPath" src="static/files/CMake_QtPath.png"></p>
+<h2>VSCode CMake 调试Qt程序，如何指定环境变量</h2>
+<p>即使正确编译生成了Qt的程序，依然无法直接调试。（在没有将Qt环境变量加入全局Path的情况下）</p>
+<p>可以将Qt的路径，添加到CMake的Debug环境变量，在Settings中，找到cmake.debugConfig，单击Edit in settings.json。</p>
+<p><img alt="CMake_QtPath" src="static/files/CMake_DebugConfig.png"></p>
+<p>在cmake.debugConfig里增加以下代码：</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;cmake.debugConfig&quot;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&quot;environment&quot;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Path&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;${env:Path};E:\\Thirdparty\\Qt\\5.12.6\\msvc2015_64\\bin;&quot;</span>
+    <span class="p">}]</span>
+    <span class="p">}</span>
+</code></pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/vscode-cpp.html" rel="bookmark"
+                           title="Permalink to VSCode C++开发">VSCode C++开发</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-09-10 12:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info -->                <p>VSCode C++开发, 使用CMake Tools插件</p>
+                <a class="readmore" href="/vscode-cpp.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/qt-modules.html" rel="bookmark"
+                           title="Permalink to 在代码内判断Qt模块启用">在代码内判断Qt模块启用</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-08-19 16:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a></span>
+</footer><!-- /.post-info -->                <p>在代码内判断Qt模块是否启用。</p>
+                <a class="readmore" href="/qt-modules.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
