@@ -82,11 +82,11 @@ var _hmt = _hmt || [];
 <p>CMAKE_PREFIX_PATH: "X:\Qt\5.12.6\msvc2015_64\lib\cmake"</p>
 <p>指定CMake所要使用的Qt版本，即可。</p>
 <p>对于VSCode，可以在Settings中，找到cmake.configureEnvironment进行设置：</p>
-<p><img alt="CMake_QtPath" src="static/files/CMake_QtPath.png"></p>
+<p><img alt="CMake_QtPath" src="/static/files/CMake_QtPath.png"></p>
 <h2>VSCode CMake 调试Qt程序，如何指定环境变量</h2>
 <p>即使正确编译生成了Qt的程序，依然无法直接调试。（在没有将Qt环境变量加入全局Path的情况下）</p>
 <p>可以将Qt的路径，添加到CMake的Debug环境变量，在Settings中，找到cmake.debugConfig，单击Edit in settings.json。</p>
-<p><img alt="CMake_QtPath" src="static/files/CMake_DebugConfig.png"></p>
+<p><img alt="CMake_DebugConfig" src="/static/files/CMake_DebugConfig.png"></p>
 <p>在cmake.debugConfig里增加以下代码：</p>
 <div class="highlight"><pre><span></span><code><span class="s2">&quot;cmake.debugConfig&quot;</span><span class="err">:</span> <span class="p">{</span>
     <span class="nt">&quot;environment&quot;</span><span class="p">:</span> <span class="p">[{</span>
