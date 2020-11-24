@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+        <meta charset="utf-8" />
+        <title>迷失之家 - Linux</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + "179fe8188dbc2a06d9a1807e610735d5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">迷失之家 </a></h1>
+                <nav><ul>
+                    <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
+                    <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li class="active"><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
+                    <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/freerdp.html">Ubuntu 连接Windows远程桌面</a></h1>
+<footer class="post-info">
+        <span>2020-11-24 21:34:00</span>
+<span>| tags: <a href="/tag/ubuntu.html">Ubuntu</a><a href="/tag/freerdp.html">FreeRDP</a></span>
+</footer><!-- /.post-info --><ol>
+<li>安装</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo apt install freerdp2-x11 
+</code></pre></div>
+
+
+<ol>
+<li>参数说明</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nl">v</span><span class="p">:</span><span class="o">&lt;</span><span class="n">server</span><span class="o">&gt;[</span><span class="n">:port</span><span class="o">]</span><span class="w">     </span><span class="n">Server</span><span class="w"> </span><span class="n">hostname</span><span class="w"></span>
+<span class="o">/</span><span class="nl">port</span><span class="p">:</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="w">         </span><span class="n">Server</span><span class="w"> </span><span class="n">port</span><span class="w"></span>
+<span class="o">/</span><span class="nl">u</span><span class="p">:</span><span class="o">[</span><span class="n">&lt;domain&gt;\</span><span class="o">]&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;[</span><span class="n">@&lt;domain&gt;</span><span class="o">]</span><span class="w">  </span><span class="n">Username</span><span class="w"></span>
+<span class="o">/</span><span class="nl">p</span><span class="p">:</span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span><span class="w">          </span><span class="n">Password</span><span class="w"></span>
+<span class="o">/</span><span class="n">f</span><span class="w">                     </span><span class="n">Fullscreen</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+
+<span class="o">+</span><span class="n">fonts</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">    </span><span class="n">Enable</span><span class="w"> </span><span class="n">smooth</span><span class="w"> </span><span class="n">fonts</span><span class="w"> </span><span class="p">(</span><span class="n">ClearType</span><span class="p">)</span><span class="w"></span>
+<span class="o">+</span><span class="n">aero</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">desktop</span><span class="w"> </span><span class="n">composition</span><span class="w"></span>
+<span class="o">+</span><span class="k">window</span><span class="o">-</span><span class="n">drag</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">  </span><span class="n">Enable</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="k">window</span><span class="w"> </span><span class="n">drag</span><span class="w"></span>
+<span class="o">+</span><span class="n">menu</span><span class="o">-</span><span class="n">anims</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">   </span><span class="n">Enable</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="n">animations</span><span class="w"></span>
+<span class="o">+</span><span class="n">clipboard</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">    </span><span class="n">Redirect</span><span class="w"> </span><span class="n">clipboard</span><span class="w"></span>
+<span class="o">/</span><span class="nl">sound</span><span class="p">:</span><span class="o">[</span><span class="n">sys</span><span class="o">][</span><span class="n">dev</span><span class="o">][</span><span class="n">format</span><span class="o">][</span><span class="n">rate</span><span class="o">][</span><span class="n">channel</span><span class="o">][</span><span class="n">latency</span><span class="o">][</span><span class="n">quality</span><span class="o">]</span><span class="w">  </span><span class="n">Audio</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="p">(</span><span class="n">sound</span><span class="p">)</span><span class="w"></span>
+<span class="o">/</span><span class="n">audio</span><span class="o">-</span><span class="n">mode</span><span class="w">             </span><span class="n">Audio</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+<span class="o">/</span><span class="nl">network</span><span class="p">:</span><span class="o">[</span><span class="n">modem|broadband|broadband-low|broadband-high|wan|lan|auto</span><span class="o">]</span><span class="w">  </span><span class="n">Network</span><span class="w"> </span><span class="k">connection</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
+</code></pre></div>
+
+
+<ol>
+<li>例子</li>
+</ol>
+<div class="highlight"><pre><span></span><code>xfreerdp /v:192.168.1.10 /u:user /p:123456 /f /sound
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
+            </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://www.leoxiaofei.com/">鄂ICP备16009745号-1</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/leoxiaofei">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+
+</body>
+</html>

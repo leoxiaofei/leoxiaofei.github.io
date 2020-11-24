@@ -22,6 +22,7 @@ var _hmt = _hmt || [];
                 <nav><ul>
                     <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
                     <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
                     <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
                 </ul>
@@ -30,70 +31,89 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/cmake-qt.html">VSCode CMake Qt配置</a></h1>
+                    <h1 class="entry-title"><a href="/build-arm-windows.html">搭建windows平台arm交叉编译环境</a></h1>
 <footer class="post-info">
-        <span>2020-09-10 15:19:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
-</footer><!-- /.post-info --><h1>CMake Qt配置</h1>
-<h2>CMakeLists.txt示例：</h2>
-<div class="highlight"><pre><span></span><code><span class="c">#设置cmake版本号</span>
-<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0.0</span><span class="p">)</span>
+        <span>2020-09-24 16:22:07</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info --><h1>VsCode + CMake + Linaro配置交叉编译环境</h1>
+<p>采用Linaro公司的交叉编译工具。</p>
+<h2>下载VsCode和CMake</h2>
+<p>参见<a href="/vscode-cpp.html">这里</a>，不再赘述了。</p>
+<h2>下载Linaro</h2>
+<p>网址：<a href="https://www.linaro.org/downloads/">https://www.linaro.org/downloads/</a></p>
+<p>根据arm 型号和目标系统版本选择对应的交叉编译工具集：
+如arm v7 32bit 下载：</p>
+<p><a href="https://releases.linaro.org/components/toolchain/binaries/latest-7/arm-linux-gnueabihf/gcc-linaro-7.5.0-2019.12-i686-mingw32_arm-linux-gnueabihf.tar.xz">gcc-linaro-7.5.0-2019.12-i686-mingw32_arm-linux-gnueabihf.tar.xz</a></p>
+<p>下载解压到任意目录(%LINARO_PATH%)</p>
+<h2>配置Linaro的CMake脚本</h2>
+<p>在解压目录新建cmake文件夹，并新建名为toolchain.cmake的文本文件，
+文件内容如下：</p>
+<div class="highlight"><pre><span></span><code><span class="c">### toolchain.cmake ###</span>
+<span class="c"># this is required</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">Linux</span><span class="p">)</span>
 
-<span class="c">#设置自动生成moc文件，一定要设置</span>
-<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_AUTOMOC</span> <span class="s">ON</span><span class="p">)</span> 
+<span class="c"># specify the cross compiler</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span> <span class="s2">&quot;arm-linux-gnueabihf-gcc.exe&quot;</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER</span> <span class="s2">&quot;arm-linux-gnueabihf-g++.exe&quot;</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span> <span class="o">${</span><span class="nv">CMAKE_C_COMPILER</span><span class="o">}</span> <span class="s">CACHE</span> <span class="s">FILEPATH</span> <span class="s2">&quot;C Compiler&quot;</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER</span> <span class="o">${</span><span class="nv">CMAKE_CXX_COMPILER</span><span class="o">}</span> <span class="s">CACHE</span> <span class="s">FILEPATH</span> <span class="s2">&quot;CXX Compiler&quot;</span><span class="p">)</span>
 
-<span class="c">#查找需要的Qt库文件，最好每一个库都要写，Qt也会根据依赖关系自动添加</span>
-<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Widgets</span><span class="p">)</span>  
-<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Core</span><span class="p">)</span>
-<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5Gui</span><span class="p">)</span>
+<span class="c"># where is the target environment</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH</span> <span class="s2">&quot;$ENV{CMT_MINGW_PATH}/../&quot;</span><span class="p">)</span>
 
-<span class="c">#查找当前文件夹中的所有源代码文件，也可以通过Set命令将所有文件设置为一个变量</span>
-<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">SRC_FILES</span> <span class="s2">&quot;./*.cxx&quot;</span><span class="p">)</span> 
-<span class="c">#同理，查找当前文件夹中所有的头文件</span>
-<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">HEAD_FILES</span> <span class="s2">&quot;./*.h&quot;</span><span class="p">)</span> 
-<span class="c">#同理，查找当前文件夹中所有的ui文件</span>
-<span class="nb">FILE</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">UI_FILES</span> <span class="s2">&quot;./*.ui&quot;</span><span class="p">)</span> 
+<span class="c"># search for programs in the build host directories (not necessary)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</span> <span class="s">NEVER</span><span class="p">)</span>
 
-<span class="c">#通过Ui文件生成对应的头文件，一定要添加</span>
-<span class="nb">qt5_wrap_ui</span><span class="p">(</span><span class="s">WRAP_FILES</span> <span class="o">${</span><span class="nv">UI_FILES</span><span class="o">}</span><span class="p">)</span>
-
-<span class="c">#添加资源文件</span>
-<span class="nb">set</span><span class="p">(</span><span class="s">RCC_FILES</span> <span class="s">rcc.qrc</span><span class="p">)</span>
-
-<span class="c">#将ui文件和生成文件整理在一个文件夹中，非必须</span>
-<span class="nb">source_group</span><span class="p">(</span><span class="s2">&quot;Ui&quot;</span> <span class="s">FILES</span> <span class="o">${</span><span class="nv">UI_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">WRAP_FILES</span><span class="o">}</span> <span class="p">)</span>
-
-<span class="c">#创建工程文件</span>
-<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="o">${</span><span class="nv">SRC_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">HEAD_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">RCC_FILES</span><span class="o">}</span> <span class="o">${</span><span class="nv">WRAP_FILES</span><span class="o">}</span><span class="p">)</span>
-
-<span class="c">#添加Qt5依赖项</span>
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">Qt5::Widgets</span> <span class="s">Qt5::Core</span> <span class="s">Qt5::Gui</span><span class="p">)</span>
+<span class="c"># for libraries and headers in the target directories</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</span> <span class="s">ONLY</span><span class="p">)</span>
+<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</span> <span class="s">ONLY</span><span class="p">)</span>
 </code></pre></div>
 
 
-<h2>Qt版本选择</h2>
-<p>之前一直不理解，电脑上装了多个Qt版本，CMake怎么知道在哪找，找哪一个。</p>
-<p>通过CMake生成Qt工程时的打印信息得知，只要在调用CMake命令之前，预先设置环境变量：</p>
-<p>CMAKE_PREFIX_PATH: "X:\Qt\5.12.6\msvc2015_64\lib\cmake"</p>
-<p>指定CMake所要使用的Qt版本，即可。</p>
-<p>对于VSCode，可以在Settings中，找到cmake.configureEnvironment进行设置：</p>
-<p><img alt="CMake_QtPath" src="/static/files/CMake_QtPath.png"></p>
-<h2>VSCode CMake 调试Qt程序，如何指定环境变量</h2>
-<p>即使正确编译生成了Qt的程序，依然无法直接调试。（在没有将Qt环境变量加入全局Path的情况下）</p>
-<p>可以将Qt的路径，添加到CMake的Debug环境变量，在Settings中，找到cmake.debugConfig，单击Edit in settings.json。</p>
-<p><img alt="CMake_DebugConfig" src="/static/files/CMake_DebugConfig.png"></p>
-<p>在cmake.debugConfig里增加以下代码：</p>
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;cmake.debugConfig&quot;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&quot;environment&quot;</span><span class="p">:</span> <span class="p">[{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Path&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;${env:Path};E:\\Thirdparty\\Qt\\5.12.6\\msvc2015_64\\bin;&quot;</span>
-    <span class="p">}]</span>
+<p>下载拷贝一个ming32-make.exe到%LINARO_PATH%\bin文件夹中</p>
+<h2>配置 VsCode的CMake插件</h2>
+<ol>
+<li>
+<p>打开cmake-tools-kits.json文件（C:\Users\&lt;用户名&gt;\AppData\Local\CMakeTools\cmake-tools-kits.json）</p>
+</li>
+<li>
+<p>添加以下内容：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>  <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;arm_corss_compiler&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;toolchainFile&quot;</span><span class="p">:</span> <span class="s2">&quot;%LINARO_PATH%/cmake/toolchain.cmake&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;preferredGenerator&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MinGW Makefiles&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;environmentVariables&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;CMT_MINGW_PATH&quot;</span><span class="p">:</span> <span class="s2">&quot;%LINARO_PATH%/bin&quot;</span>
     <span class="p">}</span>
-</code></pre></div>                </article>
+  <span class="p">}</span>
+</code></pre></div>
+
+
+<h2>完成</h2>
+<p>打开VsCode，新建一个CMake工程，然后测试吧。</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/cmake-qt.html" rel="bookmark"
+                           title="Permalink to VSCode CMake Qt配置">VSCode CMake Qt配置</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-09-10 15:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info -->                <p>VSCode CMake Qt配置</p>
+                <a class="readmore" href="/cmake-qt.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

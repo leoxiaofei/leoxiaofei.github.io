@@ -22,6 +22,7 @@ var _hmt = _hmt || [];
                 <nav><ul>
                     <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
                     <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
                     <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
                     <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
                 </ul>
@@ -30,37 +31,76 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/wsl-qt.html">WSL系统上运行Qt遇到的坑</a></h1>
+                    <h1 class="entry-title"><a href="/freerdp.html">Ubuntu 连接Windows远程桌面</a></h1>
 <footer class="post-info">
-        <span>2020-09-10 16:19:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/wsl.html">WSL</a></span>
-</footer><!-- /.post-info --><p>今天用WSL编译Qt5的程序，编译成功，但是无法运行，提示：</p>
-<div class="highlight"><pre><span></span><code><span class="err">libQt5Core.so.5: cannot open shared object file: No such file or directory</span>
+        <span>2020-11-24 21:34:00</span>
+<span>| tags: <a href="/tag/ubuntu.html">Ubuntu</a><a href="/tag/freerdp.html">FreeRDP</a></span>
+</footer><!-- /.post-info --><ol>
+<li>安装</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo apt install freerdp2-x11 
 </code></pre></div>
 
 
-<p>使用 ldd 命令查看编译好的程序，发现libQt5Core.so.5找不到，而其他Qt库却正常。</p>
-<p>用find命令，能找到libQt5Core.so.5</p>
-<div class="highlight"><pre><span></span><code>find /lib/ -name libQt5Core.so.5
+<ol>
+<li>参数说明</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nl">v</span><span class="p">:</span><span class="o">&lt;</span><span class="n">server</span><span class="o">&gt;[</span><span class="n">:port</span><span class="o">]</span><span class="w">     </span><span class="n">Server</span><span class="w"> </span><span class="n">hostname</span><span class="w"></span>
+<span class="o">/</span><span class="nl">port</span><span class="p">:</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="w">         </span><span class="n">Server</span><span class="w"> </span><span class="n">port</span><span class="w"></span>
+<span class="o">/</span><span class="nl">u</span><span class="p">:</span><span class="o">[</span><span class="n">&lt;domain&gt;\</span><span class="o">]&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;[</span><span class="n">@&lt;domain&gt;</span><span class="o">]</span><span class="w">  </span><span class="n">Username</span><span class="w"></span>
+<span class="o">/</span><span class="nl">p</span><span class="p">:</span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span><span class="w">          </span><span class="n">Password</span><span class="w"></span>
+<span class="o">/</span><span class="n">f</span><span class="w">                     </span><span class="n">Fullscreen</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+
+<span class="o">+</span><span class="n">fonts</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">    </span><span class="n">Enable</span><span class="w"> </span><span class="n">smooth</span><span class="w"> </span><span class="n">fonts</span><span class="w"> </span><span class="p">(</span><span class="n">ClearType</span><span class="p">)</span><span class="w"></span>
+<span class="o">+</span><span class="n">aero</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">desktop</span><span class="w"> </span><span class="n">composition</span><span class="w"></span>
+<span class="o">+</span><span class="k">window</span><span class="o">-</span><span class="n">drag</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">  </span><span class="n">Enable</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="k">window</span><span class="w"> </span><span class="n">drag</span><span class="w"></span>
+<span class="o">+</span><span class="n">menu</span><span class="o">-</span><span class="n">anims</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">   </span><span class="n">Enable</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="n">animations</span><span class="w"></span>
+<span class="o">+</span><span class="n">clipboard</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">    </span><span class="n">Redirect</span><span class="w"> </span><span class="n">clipboard</span><span class="w"></span>
+<span class="o">/</span><span class="nl">sound</span><span class="p">:</span><span class="o">[</span><span class="n">sys</span><span class="o">][</span><span class="n">dev</span><span class="o">][</span><span class="n">format</span><span class="o">][</span><span class="n">rate</span><span class="o">][</span><span class="n">channel</span><span class="o">][</span><span class="n">latency</span><span class="o">][</span><span class="n">quality</span><span class="o">]</span><span class="w">  </span><span class="n">Audio</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="p">(</span><span class="n">sound</span><span class="p">)</span><span class="w"></span>
+<span class="o">/</span><span class="n">audio</span><span class="o">-</span><span class="n">mode</span><span class="w">             </span><span class="n">Audio</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+<span class="o">/</span><span class="nl">network</span><span class="p">:</span><span class="o">[</span><span class="n">modem|broadband|broadband-low|broadband-high|wan|lan|auto</span><span class="o">]</span><span class="w">  </span><span class="n">Network</span><span class="w"> </span><span class="k">connection</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
 </code></pre></div>
 
 
-<p>用ldd 查看 libQt5Core.so.5，没有任何异常。</p>
-<div class="highlight"><pre><span></span><code>ldd /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
-</code></pre></div>
-
-
-<p>最后通过必应搜索找到了答案：</p>
-<div class="highlight"><pre><span></span><code>sudo strip --remove-section<span class="o">=</span>.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
-</code></pre></div>
-
-
-<p>来源：
-<a href="https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed">https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed</a></p>                </article>
+<ol>
+<li>例子</li>
+</ol>
+<div class="highlight"><pre><span></span><code>xfreerdp /v:192.168.1.10 /u:user /p:123456 /f /sound
+</code></pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/build-arm-windows.html" rel="bookmark"
+                           title="Permalink to 搭建windows平台arm交叉编译环境">搭建windows平台arm交叉编译环境</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-09-24 16:22:07</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info -->                <p>采用linaro，搭建windows平台arm交叉编译环境</p>
+                <a class="readmore" href="/build-arm-windows.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/wsl-qt.html" rel="bookmark"
+                           title="Permalink to WSL系统上运行Qt遇到的坑">WSL系统上运行Qt遇到的坑</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-09-10 16:19:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/qt.html">Qt</a><a href="/tag/wsl.html">WSL</a></span>
+</footer><!-- /.post-info -->                <p>WSL编译运行Qt5程序，出现找不到libQt5Core.so.5的问题。</p>
+                <a class="readmore" href="/wsl-qt.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
