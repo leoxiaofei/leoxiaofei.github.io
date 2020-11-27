@@ -31,74 +31,74 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/build-arm-windows.html">搭建windows平台arm交叉编译环境</a></h1>
+                    <h1 class="entry-title"><a href="/vscode-java.html">VSCode Java开发</a></h1>
 <footer class="post-info">
-        <span>2020-09-24 16:22:07</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
-</footer><!-- /.post-info --><h1>VsCode + CMake + Linaro配置交叉编译环境</h1>
-<p>采用Linaro公司的交叉编译工具。</p>
-<h2>下载VsCode和CMake</h2>
-<p>参见<a href="/vscode-cpp.html">这里</a>，不再赘述了。</p>
-<h2>下载Linaro</h2>
-<p>网址：<a href="https://www.linaro.org/downloads/">https://www.linaro.org/downloads/</a></p>
-<p>根据arm 型号和目标系统版本选择对应的交叉编译工具集：
-如arm v7 32bit 下载：</p>
-<p><a href="https://releases.linaro.org/components/toolchain/binaries/latest-7/arm-linux-gnueabihf/gcc-linaro-7.5.0-2019.12-i686-mingw32_arm-linux-gnueabihf.tar.xz">gcc-linaro-7.5.0-2019.12-i686-mingw32_arm-linux-gnueabihf.tar.xz</a></p>
-<p>下载解压到任意目录(%LINARO_PATH%)</p>
-<h2>配置Linaro的CMake脚本</h2>
-<p>在解压目录新建cmake文件夹，并新建名为toolchain.cmake的文本文件，
-文件内容如下：</p>
-<div class="highlight"><pre><span></span><code><span class="c">### toolchain.cmake ###</span>
-<span class="c"># this is required</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span> <span class="s">Linux</span><span class="p">)</span>
-
-<span class="c"># specify the cross compiler</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span> <span class="s2">&quot;arm-linux-gnueabihf-gcc.exe&quot;</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER</span> <span class="s2">&quot;arm-linux-gnueabihf-g++.exe&quot;</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span> <span class="o">${</span><span class="nv">CMAKE_C_COMPILER</span><span class="o">}</span> <span class="s">CACHE</span> <span class="s">FILEPATH</span> <span class="s2">&quot;C Compiler&quot;</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_CXX_COMPILER</span> <span class="o">${</span><span class="nv">CMAKE_CXX_COMPILER</span><span class="o">}</span> <span class="s">CACHE</span> <span class="s">FILEPATH</span> <span class="s2">&quot;CXX Compiler&quot;</span><span class="p">)</span>
-
-<span class="c"># where is the target environment</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH</span> <span class="s2">&quot;$ENV{CMT_MINGW_PATH}/../&quot;</span><span class="p">)</span>
-
-<span class="c"># search for programs in the build host directories (not necessary)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</span> <span class="s">NEVER</span><span class="p">)</span>
-
-<span class="c"># for libraries and headers in the target directories</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</span> <span class="s">ONLY</span><span class="p">)</span>
-<span class="nb">SET</span><span class="p">(</span><span class="s">CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</span> <span class="s">ONLY</span><span class="p">)</span>
-</code></pre></div>
-
-
-<p>下载拷贝一个ming32-make.exe到%LINARO_PATH%\bin文件夹中</p>
-<h2>配置 VsCode的CMake插件</h2>
+        <span>2020-11-27 21:00:00</span>
+<span>| tags: <a href="/tag/vscode.html">VSCode</a><a href="/tag/java.html">Java</a></span>
+</footer><!-- /.post-info --><h1>VSCode Java开发</h1>
+<p>VsCode新版Java插件不再支持JDK 1.8。
+想要编译开发Java 1.8程序，可以按照以下操作支持JDK1.8。</p>
+<h2>环境安装</h2>
 <ol>
-<li>
-<p>打开cmake-tools-kits.json文件（C:\Users\&lt;用户名&gt;\AppData\Local\CMakeTools\cmake-tools-kits.json）</p>
-</li>
-<li>
-<p>添加以下内容：</p>
-</li>
+<li>VSCode   (本文VSCode 1.48作为演示）</li>
+<li>JDK 1.8  (目前是1.8_271)</li>
+<li>JDK 11 (如果只安装JDK 1.8版，VsCode Java插件无法工作）</li>
 </ol>
-<div class="highlight"><pre><span></span><code>  <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;arm_corss_compiler&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;toolchainFile&quot;</span><span class="p">:</span> <span class="s2">&quot;%LINARO_PATH%/cmake/toolchain.cmake&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;preferredGenerator&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MinGW Makefiles&quot;</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;environmentVariables&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;CMT_MINGW_PATH&quot;</span><span class="p">:</span> <span class="s2">&quot;%LINARO_PATH%/bin&quot;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+<h2>VSCode插件安装</h2>
+<ol>
+<li>Java Extension Pack (最新版，目前是0.11.0)</li>
+</ol>
+<h2>配置</h2>
+<ol>
+<li>配置环境变量： JDK_HOME-&gt;为JDK 11的路径。（为了让VsCode的Java插件正常工作）</li>
+<li>VsCode配置（settings.json），在合适位置增加以下内容：（为了设置工程使用Java 1.8编译）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>    <span class="s2">&quot;java.configuration.runtimes&quot;</span><span class="err">:</span> <span class="p">[</span>
+
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;JavaSE-1.8&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:\\Program Files\\Java\\jdk1.8.0_271&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},]</span>
 </code></pre></div>
 
 
-<h2>完成</h2>
-<p>打开VsCode，新建一个CMake工程，然后测试吧。</p>                </article>
+<h2>开发</h2>
+<h3>新建Java工程</h3>
+<ol>
+<li>打开VsCode，Ctrl+Shift+p，输入java:create，回车。</li>
+<li>选择No build tools，然后选择创建工程文件夹。</li>
+<li>输入工程名称，并回车，完成。</li>
+</ol>
+<h3>调试/运行</h3>
+<ol>
+<li>VsCode 文件管理窗格中，双击App.java打开，等待Java插件运行结束。</li>
+<li>此时右上角有运行和调试的按钮（系统关闭按钮的下方附近）</li>
+<li>因为没有使用build tools，所以三方jar包自行放在lib文件夹中。</li>
+</ol>
+<h3>发布jar包</h3>
+<ol>
+<li>文件浏览窗格的下方，有个JAVA PROJECTS的窗格，鼠标移动到这个窗格上，会浮现几个按钮，其中一个箭头图标的按钮就是导出jar。</li>
+</ol>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/build-arm-windows.html" rel="bookmark"
+                           title="Permalink to 搭建windows平台arm交叉编译环境">搭建windows平台arm交叉编译环境</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-09-24 16:22:07</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info -->                <p>采用linaro，搭建windows平台arm交叉编译环境</p>
+                <a class="readmore" href="/build-arm-windows.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

@@ -31,46 +31,74 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/freerdp.html">Ubuntu 连接Windows远程桌面</a></h1>
+                    <h1 class="entry-title"><a href="/vscode-java.html">VSCode Java开发</a></h1>
 <footer class="post-info">
-        <span>2020-11-24 21:34:00</span>
-<span>| tags: <a href="/tag/ubuntu.html">Ubuntu</a><a href="/tag/freerdp.html">FreeRDP</a></span>
-</footer><!-- /.post-info --><ol>
-<li>安装</li>
+        <span>2020-11-27 21:00:00</span>
+<span>| tags: <a href="/tag/vscode.html">VSCode</a><a href="/tag/java.html">Java</a></span>
+</footer><!-- /.post-info --><h1>VSCode Java开发</h1>
+<p>VsCode新版Java插件不再支持JDK 1.8。
+想要编译开发Java 1.8程序，可以按照以下操作支持JDK1.8。</p>
+<h2>环境安装</h2>
+<ol>
+<li>VSCode   (本文VSCode 1.48作为演示）</li>
+<li>JDK 1.8  (目前是1.8_271)</li>
+<li>JDK 11 (如果只安装JDK 1.8版，VsCode Java插件无法工作）</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sudo apt install freerdp2-x11 
+<h2>VSCode插件安装</h2>
+<ol>
+<li>Java Extension Pack (最新版，目前是0.11.0)</li>
+</ol>
+<h2>配置</h2>
+<ol>
+<li>配置环境变量： JDK_HOME-&gt;为JDK 11的路径。（为了让VsCode的Java插件正常工作）</li>
+<li>VsCode配置（settings.json），在合适位置增加以下内容：（为了设置工程使用Java 1.8编译）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>    <span class="s2">&quot;java.configuration.runtimes&quot;</span><span class="err">:</span> <span class="p">[</span>
+
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;JavaSE-1.8&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:\\Program Files\\Java\\jdk1.8.0_271&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},]</span>
 </code></pre></div>
 
 
+<h2>开发</h2>
+<h3>新建Java工程</h3>
 <ol>
-<li>参数说明</li>
+<li>打开VsCode，Ctrl+Shift+p，输入java:create，回车。</li>
+<li>选择No build tools，然后选择创建工程文件夹。</li>
+<li>输入工程名称，并回车，完成。</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nl">v</span><span class="p">:</span><span class="o">&lt;</span><span class="n">server</span><span class="o">&gt;[</span><span class="n">:port</span><span class="o">]</span><span class="w">     </span><span class="n">Server</span><span class="w"> </span><span class="n">hostname</span><span class="w"></span>
-<span class="o">/</span><span class="nl">port</span><span class="p">:</span><span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span><span class="w">         </span><span class="n">Server</span><span class="w"> </span><span class="n">port</span><span class="w"></span>
-<span class="o">/</span><span class="nl">u</span><span class="p">:</span><span class="o">[</span><span class="n">&lt;domain&gt;\</span><span class="o">]&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;[</span><span class="n">@&lt;domain&gt;</span><span class="o">]</span><span class="w">  </span><span class="n">Username</span><span class="w"></span>
-<span class="o">/</span><span class="nl">p</span><span class="p">:</span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span><span class="w">          </span><span class="n">Password</span><span class="w"></span>
-<span class="o">/</span><span class="n">f</span><span class="w">                     </span><span class="n">Fullscreen</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
-
-<span class="o">+</span><span class="n">fonts</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">    </span><span class="n">Enable</span><span class="w"> </span><span class="n">smooth</span><span class="w"> </span><span class="n">fonts</span><span class="w"> </span><span class="p">(</span><span class="n">ClearType</span><span class="p">)</span><span class="w"></span>
-<span class="o">+</span><span class="n">aero</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">desktop</span><span class="w"> </span><span class="n">composition</span><span class="w"></span>
-<span class="o">+</span><span class="k">window</span><span class="o">-</span><span class="n">drag</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">  </span><span class="n">Enable</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="k">window</span><span class="w"> </span><span class="n">drag</span><span class="w"></span>
-<span class="o">+</span><span class="n">menu</span><span class="o">-</span><span class="n">anims</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">   </span><span class="n">Enable</span><span class="w"> </span><span class="n">menu</span><span class="w"> </span><span class="n">animations</span><span class="w"></span>
-<span class="o">+</span><span class="n">clipboard</span><span class="w"> </span><span class="p">(</span><span class="k">default</span><span class="err">:</span><span class="k">off</span><span class="p">)</span><span class="w">    </span><span class="n">Redirect</span><span class="w"> </span><span class="n">clipboard</span><span class="w"></span>
-<span class="o">/</span><span class="nl">sound</span><span class="p">:</span><span class="o">[</span><span class="n">sys</span><span class="o">][</span><span class="n">dev</span><span class="o">][</span><span class="n">format</span><span class="o">][</span><span class="n">rate</span><span class="o">][</span><span class="n">channel</span><span class="o">][</span><span class="n">latency</span><span class="o">][</span><span class="n">quality</span><span class="o">]</span><span class="w">  </span><span class="n">Audio</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="p">(</span><span class="n">sound</span><span class="p">)</span><span class="w"></span>
-<span class="o">/</span><span class="n">audio</span><span class="o">-</span><span class="n">mode</span><span class="w">             </span><span class="n">Audio</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
-<span class="o">/</span><span class="nl">network</span><span class="p">:</span><span class="o">[</span><span class="n">modem|broadband|broadband-low|broadband-high|wan|lan|auto</span><span class="o">]</span><span class="w">  </span><span class="n">Network</span><span class="w"> </span><span class="k">connection</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
-</code></pre></div>
-
-
+<h3>调试/运行</h3>
 <ol>
-<li>例子</li>
+<li>VsCode 文件管理窗格中，双击App.java打开，等待Java插件运行结束。</li>
+<li>此时右上角有运行和调试的按钮（系统关闭按钮的下方附近）</li>
+<li>因为没有使用build tools，所以三方jar包自行放在lib文件夹中。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>xfreerdp /v:192.168.1.10 /u:user /p:123456 /f /sound
-</code></pre></div>                </article>
+<h3>发布jar包</h3>
+<ol>
+<li>文件浏览窗格的下方，有个JAVA PROJECTS的窗格，鼠标移动到这个窗格上，会浮现几个按钮，其中一个箭头图标的按钮就是导出jar。</li>
+</ol>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/freerdp.html" rel="bookmark"
+                           title="Permalink to Ubuntu 连接Windows远程桌面">Ubuntu 连接Windows远程桌面</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2020-11-24 21:34:00</span>
+<span>| tags: <a href="/tag/ubuntu.html">Ubuntu</a><a href="/tag/freerdp.html">FreeRDP</a></span>
+</footer><!-- /.post-info -->                <p>ubuntu下，使用FreeRDP连接Windows远程桌面</p>
+                <a class="readmore" href="/freerdp.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
