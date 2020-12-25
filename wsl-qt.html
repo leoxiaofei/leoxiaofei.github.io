@@ -44,22 +44,18 @@ var _hmt = _hmt || [];
 <div class="highlight"><pre><span></span><code><span class="err">libQt5Core.so.5: cannot open shared object file: No such file or directory</span>
 </code></pre></div>
 
-
 <p>使用 ldd 命令查看编译好的程序，发现libQt5Core.so.5找不到，而其他Qt库却正常。</p>
 <p>用find命令，能找到libQt5Core.so.5</p>
 <div class="highlight"><pre><span></span><code>find /lib/ -name libQt5Core.so.5
 </code></pre></div>
 
-
 <p>用ldd 查看 libQt5Core.so.5，没有任何异常。</p>
 <div class="highlight"><pre><span></span><code>ldd /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
 </code></pre></div>
 
-
 <p>最后通过必应搜索找到了答案：</p>
 <div class="highlight"><pre><span></span><code>sudo strip --remove-section<span class="o">=</span>.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
 </code></pre></div>
-
 
 <p>来源：
 <a href="https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed">https://superuser.com/questions/1347723/arch-on-wsl-libqt5core-so-5-not-found-despite-being-installed</a></p>

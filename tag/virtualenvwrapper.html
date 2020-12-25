@@ -41,17 +41,14 @@ var _hmt = _hmt || [];
 <div class="highlight"><pre><span></span><code><span class="err">pip install virtualenv virtualenvwrapper-win</span>
 </code></pre></div>
 
-
 <p>2、设置建立虚拟环境所在位置的环境变量</p>
 <div class="highlight"><pre><span></span><code><span class="err">setx WORKON_HOME &lt;目录&gt;</span>
 </code></pre></div>
-
 
 <h2>Linux</h2>
 <p>1、通过pip安装virtualenv和virtualenvwrapper</p>
 <div class="highlight"><pre><span></span><code>sudo pip install virtualenv virtualenvwrapper
 </code></pre></div>
-
 
 <p>2、设置建立虚拟环境所在位置的环境变量
 打开 ~/.bashrc文件，添加：</p>
@@ -59,27 +56,22 @@ var _hmt = _hmt || [];
 <span class="err">source /usr/local/bin/virtualenvwrapper.sh</span>
 </code></pre></div>
 
-
 <h1>常用命令</h1>
 <p>1、创建虚拟环境 </p>
 <div class="highlight"><pre><span></span><code><span class="err">mkvirtualenv test1(虚拟环境名称)</span>
 </code></pre></div>
 
-
 <p>2、查看虚拟环境建了哪些</p>
 <div class="highlight"><pre><span></span><code><span class="err">workon</span>
 </code></pre></div>
-
 
 <p>3、进入虚拟环境</p>
 <div class="highlight"><pre><span></span><code><span class="err">workon test1(虚拟环境名称)</span>
 </code></pre></div>
 
-
 <p>4、退出当前虚拟环境</p>
 <div class="highlight"><pre><span></span><code><span class="err">deactivate</span>
 </code></pre></div>
-
 
 <p>5、删除虚拟环境</p>
 <div class="highlight"><pre><span></span><code><span class="err">rmvirtualenv test1(虚拟环境名称)</span>
