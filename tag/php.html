@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+        <meta charset="utf-8" />
+        <title>迷失之家 - PHP</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?" + "179fe8188dbc2a06d9a1807e610735d5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">迷失之家 </a></h1>
+                <nav><ul>
+                    <li><a href="/category/bian-cheng-kai-fa.html">编程开发</a></li>
+                    <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li><a href="/category/linux.html">Linux</a></li>
+                    <li><a href="/category/ruan-jian-ying-yong.html">软件应用</a></li>
+                    <li><a href="/category/zi-zhi-ruan-jian.html">自制软件</a></li>
+                </ul>
+                </nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/vscode-php.html">VSCode PHP开发</a></h1>
+<footer class="post-info">
+        <span>2020-12-25 15:00:00</span>
+<span>| tags: <a href="/tag/vscode.html">VSCode</a><a href="/tag/php.html">PHP</a></span>
+</footer><!-- /.post-info --><h1>VSCode PHP开发</h1>
+<p>采用 VsCode 搭建 PHP 7.2 开发调试环境，不使用外部http服务器。</p>
+<h2>环境安装</h2>
+<ol>
+<li>VSCode (本文1.52作为演示）</li>
+<li><a href="https://windows.php.net/download#php-7.2">PHP</a> （本文以7.2.34线程安全版本作为演示：VC15 x64 Thread Safe)</li>
+</ol>
+<p>解压到任意目录，如：D:\php\7.2.34</p>
+<ol>
+<li><a href="https://xdebug.org/download">XDebug</a> （找到PHP对应版本如：PHP 7.2 VC15 TS (64 bit)）</li>
+</ol>
+<p>复制php_xdebug-3.0.1-7.2-vc15-x86_64.dll到D:\php\7.2.34\ext</p>
+<h2>VSCode插件安装</h2>
+<ol>
+<li>PHP Extension Pack (最新版，目前是1.0.2)</li>
+<li>PHP Server（最新版，目前是v3.0.1）</li>
+</ol>
+<h2>配置</h2>
+<h3>配置XDebug</h3>
+<ol>
+<li>进入D:\php\7.2.34目录，复制php.ini-development文件到当前文件夹并改名为php.ini。</li>
+<li>记事本打开php.ini，找到<code>; extension_dir = "ext"</code>这一行，删除前面的<code>;</code>；另外找到[XDebug]节点（没有则新建），添加以下内容：（这个zend_extension的内容就是dll文件名去掉"php_")，具体字段意义<a href="https://xdebug.org/docs/upgrade_guide">参考这里</a></li>
+</ol>
+<div class="highlight"><pre><span></span><code>   <span class="k">[XDebug]</span>
+    <span class="na">zend_extension</span><span class="o">=</span><span class="s">xdebug-3.0.1-7.2-vc15-x86_64</span>
+<span class="s">    xdebug.mode=debug</span>
+<span class="s">    xdebug.start_with_request=true</span>
+<span class="s">    xdebug.idekey=&quot;php-vs&quot;</span>
+</code></pre></div>
+
+<ol>
+<li>在当前目录，使用<code>php -m</code>命令可以测试一下，出现下面的文字表示配置正确：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>   <span class="p">[</span><span class="n">Zend</span> <span class="n">Modules</span><span class="p">]</span>
+    <span class="n">Xdebug</span>
+</code></pre></div>
+
+<h3>配置VSCode</h3>
+<ol>
+<li>VsCode配置（settings.json），在合适位置增加以下内容：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>    <span class="s2">&quot;php.validate.executablePath&quot;</span><span class="err">:</span> <span class="s2">&quot;D:\\php\\7.2.34\\php.exe&quot;</span><span class="err">,</span>
+    <span class="s2">&quot;phpserver.phpPath&quot;</span><span class="err">:</span> <span class="s2">&quot;D:\\php\\7.2.34\\php.exe&quot;</span>
+</code></pre></div>
+
+<h2>开发</h2>
+<h3>新建PHP工程</h3>
+<ol>
+<li>打开VsCode，打开任意文件夹作为php工程目录。</li>
+<li>新建php文件，如test.php，并编写php代码：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">   </span><span class="cp">&lt;?php</span> <span class="nb">phpinfo</span><span class="p">();</span><span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+
+<ol>
+<li>在test.php代码区单击鼠标右键，选择PHP Server：Serve Project，此时浏览器会自动打开，显示当前php页面内容。</li>
+</ol>
+<h3>调试</h3>
+<ol>
+<li>切换到运行栏（Ctrl+Shift+D），单击<code>Create a launch.json file</code>，在弹出的列表中选择PHP。</li>
+<li>在打开的launch.json文件中，修改<code>"port": 9003</code>，保存文件。（新版的xdebug默认端口由9000改成了9003。</li>
+<li>切换到php文件上，如test.php，下好断点，点击F5运行（这里的运行指的是调试器，所以不会弹出新页面），然后去手动刷新浏览器页面即可（这里的页面是刚才用PHP Server插件打开的页面）。</li>
+</ol>
+<h3>修改php代码后，自动刷新打开的页面（非必要）</h3>
+<ol>
+<li>VsCode安装Live Server插件。</li>
+<li>
+<p>在Settings中，找到Live Server › Settings: Use Web Ext，勾上。</p>
+</li>
+<li>
+<p>浏览器安装Live Server Web Extension插件。</p>
+</li>
+<li>对Live Server Web Extension做以下设置：<blockquote>
+<p>打开Live Reload开关</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>Actual Server Address（设置为:http://localhost:3000，这是PHP Server服务器地址，需要和PHP Server插件打开的浏览器上的地址一致)</p>
+<p>Live Server Address（设置为:http://localhost:5500，这是Live Server服务器地址）</p>
+</blockquote>
+<ol>
+<li>回到test.php，按快捷键Alt+L Alt+O，会启动Live Server服务，此时会打开一个新页面，不管他。</li>
+<li>回到test.php，用PHP Server插件启动服务，然后修改代码便可以自动刷新了。</li>
+</ol>                </article>
+            </aside><!-- /#featured -->
+            </ol><!-- /#posts-list -->
+            </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="https://beian.miit.gov.cn/">鄂ICP备16009745号</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="https://github.com/leoxiaofei">Github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme <a href="https://github.com/blueicefield/pelican-blueidea/">blueidea</a>, inspired by the default theme.</p>
+        </footer><!-- /#contentinfo -->
+
+
+</body>
+</html>
