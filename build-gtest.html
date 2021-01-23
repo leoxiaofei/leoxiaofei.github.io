@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>windows平台编译openssl</title>
+        <title>windows平台编译gtest</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
 <script>
@@ -32,52 +32,61 @@ var _hmt = _hmt || [];
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/build-openssl.html" rel="bookmark"
-           title="Permalink to windows平台编译openssl">windows平台编译openssl</a></h1>
+        <a href="/build-gtest.html" rel="bookmark"
+           title="Permalink to windows平台编译gtest">windows平台编译gtest</a></h1>
     </header>
 
     <div class="entry-content">
 <footer class="post-info">
-        <span>2020-03-11 15:32:16</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/openssl.html">openssl</a></span>
-</footer><!-- /.post-info -->      <p>openssl官网不再提供编译好的二进制文件，所以得自己编译。</p>
-<h1>准备工作</h1>
+        <span>2021-01-23 15:30:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/gtest.html">gtest</a></span>
+</footer><!-- /.post-info -->      <h1>准备工作</h1>
 <h2>需要安装的软件</h2>
 <ol>
-<li>
-<p><a href="https://www.activestate.com/products/perl/downloads/">ActivePerl</a> l5.24.3 (我测试了15.26、15.28，均报错）</p>
-</li>
-<li>
-<p><a href="https://www.nasm.us/">Nasm</a> （我测试的是2.14.02，其他版本应该不影响）</p>
-</li>
-<li>
-<p>VC编译器（我测试了VS2015、VS2017）</p>
-</li>
+<li>CMake    （并设置好环境变量）</li>
+<li>VC编译器    （我测试了VS2015、VS2019）</li>
 </ol>
-<h2>编辑变量</h2>
-<p>PATH中加入ActivePerl和NASM</p>
 <h2>下载源码</h2>
-<p>可以在官网上下载
-https://www.openssl.org/source/</p>
-<p>也可以在github上git clone
-https://github.com/openssl/openssl</p>
+<p>github下载
+https://github.com/google/googletest</p>
+<p>或者
+git clone https://github.com/google/googletest.git</p>
+<p>代码放在 googletest/source-master 目录下</p>
 <h1>开始编译</h1>
 <h2>编译流程</h2>
 <ol>
-<li>在开始菜单里找到并打开vs2015编译命令行："x64 Native Tools Command Prompt for VS 2015"</li>
-<li>cd 到 openssl 源码目录</li>
-<li>Perl Configure VC-WIN64A --prefix=&lt;导出目录&gt;</li>
-<li>nmake install</li>
+<li>打开 VC编译命令行工具（如“x64 Native Tools Command Prompt for VS 2019”）。</li>
+<li>cd到googletest文件夹，然后依次执行以下命令：</li>
 </ol>
-<h2>出错排查</h2>
-<h3>出现'rc' is not recognized as an internal or external command,</h3>
-<p>在磁盘上搜索rc.exe，把rc.exe所在目录加入PATH，如：</p>
-<div class="highlight"><pre><span></span><code><span class="err">set PATH=C:\Program Files (x86)\Windows Kits\8.1\bin\x64;%PATH%</span>
+<div class="highlight"><pre><span></span><code><span class="k">mkdir</span> build
+<span class="k">cd</span> build
+cmake -DCMAKE_INSTALL_PREFIX=../ -Dgtest_force_shared_crt=ON -A x64 ../source-master
+msbuild install.vcxproj /P:Configuration=Debug 
+msbuild install.vcxproj /P:Configuration=Release 
 </code></pre></div>
 
-<h3>出现Undefined subroutine &amp;Win32::Console::STD_OUTPUT_HANDLE</h3>
-<p>原因是缺少Win32::Console模块，我尝试用ppm install Win32-Console-ANSI安装，但是没能成功。
-最后把Perl版本换成l5.24.3得以解决。 </p>
+<h2>在CMake项目中使用GTest</h2>
+<ol>
+<li>设置环境变量GTest_ROOT为googletest目录</li>
+<li>测试工程CMakeLists写法如下：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>enable_testing()
+
+find_package(GTest REQUIRED)
+
+FILE(GLOB MSTEST_INCLUDE_FILES &quot;*.h&quot;)
+FILE(GLOB MSTEST_SOURCE_FILES &quot;*.cpp&quot;)
+
+add_executable(msttest <span class="cp">${</span><span class="n">MSTEST_INCLUDE_FILES</span><span class="cp">}</span> <span class="cp">${</span><span class="n">MSTEST_SOURCE_FILES</span><span class="cp">}</span>)
+
+target_include_directories(msttest PRIVATE <span class="cp">${</span><span class="n">GTEST_INCLUDE_DIR</span><span class="cp">}</span>)
+target_link_libraries(msttest <span class="cp">${</span><span class="n">GTEST_BOTH_LIBRARIES</span><span class="cp">}</span>)
+
+add_test(
+    Name msttest
+    COMMAND msttest
+)
+</code></pre></div>
     </div><!-- /.entry-content -->
 
   </article>

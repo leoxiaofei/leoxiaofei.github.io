@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
         <meta charset="utf-8" />
-        <title>迷失之家 - Nextcloud</title>
+        <title>迷失之家 - gtest</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 
 <script>
@@ -31,20 +31,57 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/nextcloud-proxy.html">Nextcloud服务端使用代理服务器</a></h1>
+                    <h1 class="entry-title"><a href="/build-gtest.html">windows平台编译gtest</a></h1>
 <footer class="post-info">
-        <span>2020-02-22 20:12:09</span>
-<span>| tags: <a href="/tag/nextcloud.html">Nextcloud</a><a href="/tag/dai-li-fu-wu-qi.html">代理服务器</a><a href="/tag/pei-zhi.html">配置</a></span>
-</footer><!-- /.post-info --><p>在中国由于大家都知道的原因，国外的很多服务都无法使用或速度极慢，Nextcloud的系统更新以及插件也因此无法使用。</p>
-<p>Nextcloud管理界面里没有关于代理服务器的设置，而对linux全局设置的代理环境变量也不起作用。</p>
-<p>最后在Nextcloud配置(config/config.sample.php)里找到了代理相关设置的说明。</p>
-<p>打开config/config.php，增加如下配置：</p>
-<div class="highlight"><pre><span></span><code><span class="x">  &#39;proxy&#39; =&gt; &#39;172.16.0.200:1080&#39;, </span>
-<span class="x">  &#39;proxyuserpwd&#39; =&gt; &#39;user:pass&#39;,</span>
-<span class="x">  &#39;trusted_proxies&#39; =&gt; array(&#39;172.16.0.200&#39;),</span>
+        <span>2021-01-23 15:30:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/gtest.html">gtest</a></span>
+</footer><!-- /.post-info --><h1>准备工作</h1>
+<h2>需要安装的软件</h2>
+<ol>
+<li>CMake    （并设置好环境变量）</li>
+<li>VC编译器    （我测试了VS2015、VS2019）</li>
+</ol>
+<h2>下载源码</h2>
+<p>github下载
+https://github.com/google/googletest</p>
+<p>或者
+git clone https://github.com/google/googletest.git</p>
+<p>代码放在 googletest/source-master 目录下</p>
+<h1>开始编译</h1>
+<h2>编译流程</h2>
+<ol>
+<li>打开 VC编译命令行工具（如“x64 Native Tools Command Prompt for VS 2019”）。</li>
+<li>cd到googletest文件夹，然后依次执行以下命令：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">mkdir</span> build
+<span class="k">cd</span> build
+cmake -DCMAKE_INSTALL_PREFIX=../ -Dgtest_force_shared_crt=ON -A x64 ../source-master
+msbuild install.vcxproj /P:Configuration=Debug 
+msbuild install.vcxproj /P:Configuration=Release 
 </code></pre></div>
 
-<p>保存后即时生效。</p>                </article>
+<h2>在CMake项目中使用GTest</h2>
+<ol>
+<li>设置环境变量GTest_ROOT为googletest目录</li>
+<li>测试工程CMakeLists写法如下：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>enable_testing()
+
+find_package(GTest REQUIRED)
+
+FILE(GLOB MSTEST_INCLUDE_FILES &quot;*.h&quot;)
+FILE(GLOB MSTEST_SOURCE_FILES &quot;*.cpp&quot;)
+
+add_executable(msttest <span class="cp">${</span><span class="n">MSTEST_INCLUDE_FILES</span><span class="cp">}</span> <span class="cp">${</span><span class="n">MSTEST_SOURCE_FILES</span><span class="cp">}</span>)
+
+target_include_directories(msttest PRIVATE <span class="cp">${</span><span class="n">GTEST_INCLUDE_DIR</span><span class="cp">}</span>)
+target_link_libraries(msttest <span class="cp">${</span><span class="n">GTEST_BOTH_LIBRARIES</span><span class="cp">}</span>)
+
+add_test(
+    Name msttest
+    COMMAND msttest
+)
+</code></pre></div>                </article>
             </aside><!-- /#featured -->
             </ol><!-- /#posts-list -->
             </section><!-- /#content -->
