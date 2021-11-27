@@ -69,6 +69,7 @@ var _hmt = _hmt || [];
 <div class="highlight"><pre><span></span><code><span class="err">vcpkg install &lt;库名&gt;:x64-windows</span>
 </code></pre></div>
 
+<p>如果安装静态库可以尝试：x64-windows-static / x64-windows-static-md</p>
 <h2>cmake工程中调用vcpkg安装的三方库</h2>
 <ol>
 <li>CMakeLists.txt文件中：</li>
@@ -83,6 +84,8 @@ target_link_libraries(<span class="cp">${</span><span class="n">PROJECT_NAME</sp
 </ol>
 <div class="highlight"><pre><span></span><code><span class="err">cmake -DCMAKE_TOOLCHAIN_FILE=&lt;Github&gt;/vcpkg/scripts/buildsystems/vcpkg.cmake</span>
 </code></pre></div>
+
+<p>如果使用静态库可能需要添加：-DVCPKG_TARGET_TRIPLET=x64-windows-static / x64-windows-static-md</p>
     </div><!-- /.entry-content -->
 
   </article>
