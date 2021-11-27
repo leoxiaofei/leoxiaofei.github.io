@@ -31,61 +31,73 @@ var _hmt = _hmt || [];
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/build-gtest.html">windows平台编译gtest</a></h1>
+                    <h1 class="entry-title"><a href="/vcpkg-cmake.html">在CMake中使用Vcpkg</a></h1>
 <footer class="post-info">
-        <span>2021-01-23 15:30:00</span>
-<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/gtest.html">gtest</a></span>
-</footer><!-- /.post-info --><h1>准备工作</h1>
-<h2>需要安装的软件</h2>
-<ol>
-<li>CMake    （并设置好环境变量）</li>
-<li>VC编译器    （我测试了VS2015、VS2019）</li>
-</ol>
-<h2>下载源码</h2>
-<p>github下载
-https://github.com/google/googletest</p>
-<p>或者
-git clone https://github.com/google/googletest.git</p>
-<p>代码放在 googletest/source-master 目录下</p>
-<h1>开始编译</h1>
-<h2>编译流程</h2>
-<ol>
-<li>打开 VC编译命令行工具（如“x64 Native Tools Command Prompt for VS 2019”）。</li>
-<li>cd到googletest文件夹，然后依次执行以下命令：</li>
-</ol>
-<div class="highlight"><pre><span></span><code><span class="k">mkdir</span> build
-<span class="k">cd</span> build
-cmake -DCMAKE_INSTALL_PREFIX=../ -Dgtest_force_shared_crt=ON -A x64 ../source-master
-msbuild install.vcxproj /P:Configuration=Debug 
-msbuild install.vcxproj /P:Configuration=Release 
+        <span>2021-11-27 21:50:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/cmake.html">CMake</a><a href="/tag/vscode.html">VSCode</a></span>
+</footer><!-- /.post-info --><h1>Vcpkg</h1>
+<p>简单来说，VCPKG就是统一了各个开源C/C++库的编译脚本（其实现原理是基于各三方库提供的编译脚本上进行修改，使其能提供统一编译输出：如头文件、库文件等，将修改方法保存为diff文件，放到vcpkg的源码目录里。）</p>
+<p>当使用VCPKG安装三方库时，VCPKG是用git从原始三方库下载源码，然后用diff文件补丁该下载的源码文件，然后再调用编译命令进行编译（这样就有统一的输出）。</p>
+<h2>下载Vcpkg源码</h2>
+<div class="highlight"><pre><span></span><code><span class="err">cd &lt;Github&gt;</span>
+<span class="err">git clone https://github.com/Microsoft/vcpkg.git</span>
 </code></pre></div>
 
-<h2>在CMake项目中使用GTest</h2>
+<h2>添加环境变量</h2>
+<div class="highlight"><pre><span></span><code><span class="err">set oldValue=%PATH%</span>
+<span class="err">setx PATH &lt;Github&gt;\vcpkg;%oldValue%</span>
+</code></pre></div>
+
+<h2>安装</h2>
+<div class="highlight"><pre><span></span><code><span class="err">bootstrap-vcpkg.bat</span>
+</code></pre></div>
+
+<h2>集成到VS（可选）</h2>
+<div class="highlight"><pre><span></span><code><span class="err">vcpkg integrate install</span>
+</code></pre></div>
+
+<h2>设置代理（如果有必要的话）</h2>
+<div class="highlight"><pre><span></span><code><span class="err">set HTTP_PROXY=&quot;127.0.0.1:1080&quot;</span>
+<span class="err">set HTTPS_PROXY=&quot;127.0.0.1:1080&quot;</span>
+</code></pre></div>
+
+<h2>安装三方库方法</h2>
+<div class="highlight"><pre><span></span><code><span class="err">vcpkg install &lt;库名&gt;:x64-windows</span>
+</code></pre></div>
+
+<h2>cmake工程中调用vcpkg安装的三方库</h2>
 <ol>
-<li>设置环境变量GTest_ROOT为googletest目录</li>
-<li>测试工程CMakeLists写法如下：</li>
+<li>CMakeLists.txt文件中：</li>
 </ol>
-<div class="highlight"><pre><span></span><code>enable_testing()
+<div class="highlight"><pre><span></span><code>find_package(<span class="nt">&lt;三方库&gt;</span> CONFIG REQUIRED)
 
-find_package(GTest REQUIRED)
+target_link_libraries(<span class="cp">${</span><span class="n">PROJECT_NAME</span><span class="cp">}</span> PUBLIC <span class="nt">&lt;三方库&gt;</span>)
+</code></pre></div>
 
-FILE(GLOB MSTEST_INCLUDE_FILES &quot;*.h&quot;)
-FILE(GLOB MSTEST_SOURCE_FILES &quot;*.cpp&quot;)
-
-add_executable(msttest <span class="cp">${</span><span class="n">MSTEST_INCLUDE_FILES</span><span class="cp">}</span> <span class="cp">${</span><span class="n">MSTEST_SOURCE_FILES</span><span class="cp">}</span>)
-
-target_include_directories(msttest PRIVATE <span class="cp">${</span><span class="n">GTEST_INCLUDE_DIR</span><span class="cp">}</span>)
-target_link_libraries(msttest <span class="cp">${</span><span class="n">GTEST_BOTH_LIBRARIES</span><span class="cp">}</span>)
-
-add_test(
-    Name msttest
-    COMMAND msttest
-)
+<ol>
+<li>生成工程：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="err">cmake -DCMAKE_TOOLCHAIN_FILE=&lt;Github&gt;/vcpkg/scripts/buildsystems/vcpkg.cmake</span>
 </code></pre></div>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/build-gtest.html" rel="bookmark"
+                           title="Permalink to windows平台编译gtest">windows平台编译gtest</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <span>2021-01-23 15:30:00</span>
+<span>| tags: <a href="/tag/c.html">C++</a><a href="/tag/gtest.html">gtest</a></span>
+</footer><!-- /.post-info -->                <p>windows平台编译gtest库</p>
+                <a class="readmore" href="/build-gtest.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
