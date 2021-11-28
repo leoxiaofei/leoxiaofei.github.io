@@ -76,6 +76,9 @@ var _hmt = _hmt || [];
 <span class="nb">target_link_libraries</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">Qt5::Widgets</span> <span class="s">Qt5::Core</span> <span class="s">Qt5::Gui</span><span class="p">)</span>
 </code></pre></div>
 
+<h2>代替qt5_wrap_ui</h2>
+<p>可以使用set(CMAKE_AUTOUIC ON) 来代替qt5_wrap_ui，但需要注意的是：</p>
+<p>当启用AUTOUIC属性后，CMake不会自动为<em>.ui文件生成头文件(ui_</em>.h)，而是只有代码文件中引用该ui文件的生成文件后（例如#include "ui_<em>.h"或#include <ui_*.h>，其中</em>为ui里窗口的类名（区分大小写）），CMake才会自动使用uic工具处理它们。</p>
 <h2>Qt版本选择</h2>
 <p>之前一直不理解，电脑上装了多个Qt版本，CMake怎么知道在哪找，找哪一个。</p>
 <p>通过CMake生成Qt工程时的打印信息得知，只要在调用CMake命令之前，预先设置环境变量：</p>
